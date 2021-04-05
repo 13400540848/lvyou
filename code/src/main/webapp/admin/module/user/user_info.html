@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../css/sapar.css" />
+<link href="/statics/umeditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+<script src="/statics/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../js/sapar.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+<script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/utils.js"></script>
+<script type="text/javascript" src="../../js/WdatePicker.js"></script>
+<script type="text/javascript" src="js/user_info.js"></script>
+<style>
+    .kv-item {
+        margin: 10px 0;
+        float: left;
+        font-size: 14px;
+    }
+    .kv-item label{
+        padding-left:40px;
+    }
+    .table-box{
+        overflow: auto;
+    }
+    .table tbody tr td {
+        white-space: normal;
+    }
+    .foot-botton{
+        text-align: center;
+    }
+    .foot-btn {
+        padding: 8px 20px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #6AB96E;
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0% 0% #6AB96E;
+    }
+    .foot-btn:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #btnClose{
+        margin-left: 20px;
+        /* border: 1px solid #cccccc;
+        background: none repeat scroll 0% 0% #cccccc; */
+    }
+    .tab-container{
+        height: 500px;
+    }
+    #tbDescription{
+        width: 640px;
+        height: 140px;
+    }
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<title>用户详情</title>
+</head>
+<body style="overflow:hidden">
+    <div id="saper-container">
+        <div id="saper-bd">
+            <div class="subfiled-content">
+                <div class="tab-container" data-trigger="click">
+                    <div class="tab">
+                        <a href="javascript:;" class="current">基本信息</a>
+                        <a href="javascript:;">身份证照片</a>
+                        <a href="javascript:;">项目投资</a>
+                        <a href="javascript:;">充值记录</a>
+                        <a href="javascript:;">提现记录</a>
+                        <!-- <a href="javascript:;">买入记录</a>
+                        <a href="javascript:;">卖出记录</a> -->
+                        <a href="javascript:;">个人钱包</a>
+                        <a href="javascript:;">账户明细</a>
+                    </div>
+                    <div class="tab-content" id="tbForm">
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>真实姓名：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="realName" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>登录账号：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="userName" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>用户状态：</label>
+                                <div class="kv-item-content">
+                                    <select field="status" disabled="disabled">
+                                        <option value="0">正常</option>
+                                        <option value="1">已删除</option>
+                                        <option value="2">禁用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>用户邮箱：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="email" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>手机号码：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="mobilePhone" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>用户性别：</label>
+                                <div class="kv-item-content">
+                                    <select field="sex" disabled="disabled">
+                                        <option value="0">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>身份证号：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="cardId" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>注册时间：</label>
+                                <div class="kv-item-content">
+                                    <input field="lastModified" format="date" type="text" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>审核状态：</label>
+                                <div class="kv-item-content">
+                                    <select field="checkStatus" disabled="disabled">
+                                        <option value="-1">待提交认证</option>
+                                        <option value="0">待审核</option>
+                                        <option value="1">通过</option>
+                                        <option value="2">不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>用户昵称：</label>
+                                <div class="kv-item-content">
+                                    <input type="text" field="nickName" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>审核意见：</label>
+                                <div class="kv-item-content">
+                                    <textarea style="width: 640px; height: 140px;" placeholder="审核意见" field="checkReason" disabled="disabled"></textarea>                              
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>正面照：</label>
+                                <div class="kv-item-content">
+                                    <a href="javascript:void(0)" target="_blank" />
+                                        <img id="imageView1" style="width:280px; height:150px;" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>反面照：</label>
+                                <div class="kv-item-content">
+                                    <img id="imageView2" style="width:280px; height:150px;" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>手持照：</label>
+                                <div class="kv-item-content">
+                                    <img id="imageView3" style="width:280px; height:150px;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table1"></table>
+                                </div>
+                            </div>
+                            <div id="pagin1" class="pagination"></div>        
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table2"></table>
+                                </div>
+                            </div>
+                            <div id="pagin2" class="pagination"></div>        
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table3"></table>
+                                </div>
+                            </div>
+                            <div id="pagin3" class="pagination"></div>        
+                        </div>
+                        <!-- <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table4"></table>
+                                </div>
+                            </div>
+                            <div id="pagin4" class="pagination"></div>        
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table5"></table>
+                                </div>
+                            </div>
+                            <div id="pagin5" class="pagination"></div>        
+                        </div> -->
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table6"></table>
+                                </div>
+                            </div>
+                            <div id="pagin6" class="pagination"></div>        
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-box">
+                                    <table id="table7"></table>
+                                </div>
+                            </div>
+                            <div id="pagin7" class="pagination"></div>        
+                        </div>
+                    </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnClose" href="javascript:;" class="foot-btn">关闭</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    // $('select').iSelect();
+   
+</script>
+</html>

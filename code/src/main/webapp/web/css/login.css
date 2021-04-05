@@ -1,0 +1,60 @@
+
+.login-box .title{
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    color: #36485a;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* .login-box{padding-top:5px;} */
+.login-box .input{height:39px;padding-left: 20px;}
+.login-box .input label{width:70px; height:37px; line-height:37px; font-size:14px; font-weight: normal;}
+.login-box .input input{padding:0 0 0 48px; width:196px; height:39px; line-height:39px; border:none; outline:none; }
+.login-box .username{ margin-bottom: 15px;}
+.login-box .username input{background:url(../images/login/userinput.png);font-size:14px;}
+.login-box .psw{ margin-bottom: 15px;}
+.login-box .psw input { background:url(../images/login/passwordinput.png);}
+.login-box .validate{ position: relative; margin-bottom: 15px;}
+.login-box .validate input{width:223px; padding:0 0 0 20px; background:url(../images/login/yzminput.png);font-size:14px;}
+.login-box .validate .value {
+    position: absolute;
+    right: 40px;
+    top: 4px;
+    height: 16px;
+    line-height: 16px;
+    color: #fff;
+    font-size: 16px;
+}
+a, a:hover, a:active {
+    outline: 0px !important;
+    text-decoration: none;
+}
+.forget-button{
+    text-align: right; padding-right: 10px; position: relative;
+}
+.login-error{
+    color: red; position: absolute; top:0px; left:20px;
+}
+.login-button, .reg-button{  color: #ffffff; text-align: center; margin-top:10px; }
+.login-button a, .reg-button a{ 
+    width:272px; 
+    /* height:25px; */
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    background-color: #289cd8;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    font-size: 14px;
+    transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    border-radius: 4px;
+    border: none;
+}
+.reg-button a{
+    background-color:#fc7700;
+}
+.login-button a:hover, .reg-button a:hover{background-color: #7e7e7e;}

@@ -1,0 +1,9 @@
+
+.table-box {
+    overflow: auto;
+    border: 1px solid #c1d3de;
+}
+.table table {
+    width: 100%;
+    border: 0px !important;
+}

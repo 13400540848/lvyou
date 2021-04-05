@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>代币充值支付</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .layui-tab-content {
+      padding-top: 30px;
+    }
+    .id-card img{
+      width:200px; height:120px; border:dashed 1px gray; cursor: pointer;
+    }
+    .validate{
+      position:absolute;
+      left:110px;
+      top:3px;
+    }
+    .layui-elem-quote{
+      border-left: 5px solid #3b85c8;
+    }
+  </style>
+</head>
+
+<body>
+  <blockquote class="layui-elem-quote">
+    支付说明：<br />
+    （1）请扫描二维码、给充值地址进行打币；<br />
+    （2）打币时请备注订单号（订单号用于管理员查询您的充值记录）；<br />
+    （3）打币成功后，点击确认支付，耐心等待管理员审核发币。</blockquote>
+  <form class="layui-form" action="" lay-filter="form">
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label">二维码</label>
+        <div class="layui-input-inline" style="width: 100px;">
+          <img id="imageView" style="width:122px; height:122px;" />
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item bank">
+      <label class="layui-form-label">充值地址</label>
+      <div class="layui-input-inline" style="width: 200px;">
+        <input id="rechargeAddress" type="text" name="rechargeAddress" readonly="readonly" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label">充值数量</label>
+        <div class="layui-input-inline" style="width: 80px;">
+          <input id="money" type="text" name="money" readonly="readonly" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux" id="typeName"></div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button id="btn_submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo">确认已支付</button>
+      </div>
+    </div>
+  </form>
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+  <script type="text/javascript" src="../js/utils.js"></script>
+  <script>
+    var model = null, layer, typeModel = null;
+    var MyRechargePay = {
+      "init": function () {
+        if(parent && parent.orderModel){
+          model = parent.orderModel;
+          var url = Config.WEB_SERVER_API + Config.URI.MONEY_TYPE_INFO + model.typeId;
+          HttpUtils.httpGet(url, {}, function (result, success) {
+            if (success) {
+              typeModel = result.rows;
+              MyRechargePay.initForm();
+            } else {
+              layer.alert(result.resultMsg, { title: '出错了', icon: 5 });
+            }
+          });
+        }
+      },
+      "initForm": function () {
+        layui.use(['form', 'layer', 'element', 'table'], function () {
+          var form = layui.form, element = layui.element, table = layui.table;
+          layer = layui.layer;
+
+          $("#imageView").attr("src", typeModel.qrCode);
+          $("#rechargeAddress").val(typeModel.rechargeAddress);
+          $("#money").val(model.money);
+          $("#typeName").html(model.typeName);
+          //监听提交
+          form.on('submit(demo)', function (data) {
+            layer.confirm('确定订单 ' + model.orderId + ' 已支付吗?', { icon: 3, title: '提示' }, function (index) {
+              var url = Config.WEB_SERVER_API + Config.URI.USER_MONEY_RECHARGE_PAY;
+              HttpUtils.httpPost(url, model, function (result, success) {
+                if (success) {
+                  layer.alert('已确认支付成功，等待管理员发币！', { title: '确认成功' }, function(){
+                    parent.location.reload();
+                  });
+                } else {
+                  layer.alert(result.resultMsg, { title: '出错了', icon: 5 });
+                }
+              });
+              layer.close(index);
+            });
+            return false;
+          });
+        });
+      }
+    }
+    $(function () {
+      MyRechargePay.init();  
+    });
+  </script>
+
+</body>
+
+</html>

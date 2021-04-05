@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>区块链产品消费交易众筹平台-项目详情</title>
+	<link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+	<link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+	<link href="css/animate.css" rel="stylesheet" type="text/css">
+	<link href="css/site.css" rel="stylesheet" type="text/css">
+	<style>
+		#aboutUs .container{
+			width: 1050px;
+			margin:0 auto;
+			padding-top: 100px;
+		}
+		.title {
+			font-size: 38px;
+			color: #222222;
+			font-weight: normal;
+			margin: 0px 0 25px 0;
+			text-align: center;
+			text-transform: uppercase;
+			line-height: 1.1;
+		}
+
+		.content {
+			float: left;
+			width: 100%;
+			min-height: 500px;
+			color: #7e7e7e;
+			margin: 30px 10px;
+			text-align: left;
+		}
+
+		.sub-title {
+			border-bottom: 1px solid #dedede;
+			padding-bottom: 30px;
+			margin-bottom: 10px;
+			font-size: 16px;
+			color: #888888;
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 400;
+			text-align: center;
+		}
+
+		.start-time {
+			margin: 20px 0 10px 0;
+			text-align: left;
+		}
+
+		.end-time {
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.progress {
+			height: 15px;
+			border-radius: 7px;
+			margin-top: 5px;
+			margin-bottom: 0px;
+		}
+
+		.layui-progress {
+			background-color: #ffffff;
+			margin-top: 5px;
+		}
+		.money-all{
+			margin-bottom: 15px;
+    		margin-top: 20px;
+		}
+		.user-sum{
+			margin-bottom: 15px;
+    		margin-top: 15px;
+		}
+		.col-md-9 {
+			width: 72%;
+			float:left;
+			padding-right: 30px;
+			line-height: 24px;
+		}
+		.col-md-3 {
+			width: 25%;
+			float:left;
+		}
+		.image {
+			max-width: 100%;
+		}
+		.progress-text {
+			color: #289cd8;
+		}
+		.progress-text span {
+			float: left;
+			margin-left: 10px;
+		}
+		.progress-text strong {
+			float: right;
+			margin-right: 10px;
+		}
+		.clear {
+			clear: both;
+			display: block;
+			overflow: hidden;
+			visibility: hidden;
+			width: 0;
+			height: 0;
+		}
+		.layui-progress {
+			background-color: #ffffff;
+			margin-top: 5px;
+		}
+		body{
+			background-color: #DDE8EC;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="layout-container">
+		<div class="layui-header"></div>
+		<section id="aboutUs">
+			<!--Aboutus-->
+			<div class="inner_wrapper aboutUs-container fadeInLeft animated wow">
+				<div class="container">
+					<div class="title">COINXP</div>
+					<div class="sub-title">Lorem ipsum dolor sit amet, consectetur Morbi sagittis, sem quisci ipsum</div>
+					<div class="content" type="1">
+						<div class="row">
+							<div class="col-md-9" id="content">
+
+							</div>
+							<div class="col-md-3">
+								<img class="image" src="/statics/upload/attachment/20180918/35301537277068958.jpg" title="image-name">
+								<p class="start-time">开始时间：2018-09-17</p>
+								<p class="end-time">结束时间：2020-10-03</p>
+								<p class="time-type">项目状态：进行中</p>
+								<div id="rate"></div>
+								<div class="progress-text clearfix"><span>项目进度</span><strong id="progress">0%</strong>
+									<div class="clear"></div>
+								</div>
+								<div class="layui-progress layui-progress-big" lay-filter="demo">
+									<div class="layui-progress-bar" lay-percent="0%"></div>
+								</div>
+								<p class="money-all">目标数量：</p>
+								<p class="allow-type">接受币种：</p>
+								<p class="user-sum">支持人数：</p>
+								<p class="broke-percent">手续费：</p>
+								<!-- <p class="user-limit">个人可支持额度（单次）：</p> -->
+								<div style="text-align: center; padding-top:20px;">
+									<button id="btn_buy" class="layui-btn" href="projectbuy.html">我要支持</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="layui-bottom"></div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="/statics/layui/layui.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/include.js"></script>
+	<script>
+		var layer, id = "", model = null;
+
+		var ProjectInfo = {
+			"init": function () {
+				id = Utils.getUrlParam("id");
+				if (!id) {
+					window.location.href = "project.html";
+					return;
+				}
+				this.initProjectInfo(function (data) {
+					$(".title").text(data.title);
+					$(".sub-title").text(data.description);
+					$("#content").html(data.content);
+					$(".image").attr("src", data.image);
+					$(".image").attr("title", data.title);
+					$(".start-time").text("开始时间：" + FormatUtils.parseTimestampToDate(data.startTime));
+					$(".end-time").text("结束时间：" + FormatUtils.parseTimestampToDate(data.endTime));
+					var status = data.timeTypeName;
+					if (data.timeType == 1) {
+						status = '<span style="color:green;">' + status + '</span>';
+					} else if (data.timeType == 2) {
+						status = '<span style="color:red;">' + status + '</span>';
+					}
+					$(".time-type").html("项目状态：" + status);
+					$(".money-all").html("目标数量：" + FormatUtils.formatMoneyAll(data.projectMoneys));
+					$(".user-sum").html("支持人数：" + data.userCount);
+					$(".allow-type").html("接受币种：" + (data.moneyTypes || "<span style='color:red;'>未设置</span>"));
+					$(".broke-percent").html("手续费：" + data.brokePercent + '%');
+
+					// $(".user-limit").html("个人可支持额度（单次）：<br />"+data.moneyLimit);
+
+					$("#progress").text(data.progress + "%");
+					// $(".progress-bar").css("width", data.progress + "%");
+
+					layui.use(['rate', 'element', 'table', 'layer'], function () {
+						var rate = layui.rate, element = layui.element, table = layui.table;
+						layer = layui.layer;
+						//只读
+						rate.render({
+							elem: '#rate'
+							, value: parseInt(data.star)
+							, readonly: true
+							, text: true
+						});
+
+						$(".layui-progress-bar").attr("lay-percent", data.progress + '%');
+						element.progress('demo', data.progress + '%');
+
+						ProjectInfo.initBtnStatus();
+					});
+				});
+			},
+			"initProjectInfo": function (callback) {
+				DataUtils.getProjectInfo(id, function (data) {
+					model = data;
+					if (callback) {
+						callback(data);
+					}
+				});
+			},
+			"initBtnStatus": function () {
+				DataUtils.getUserIsLogin(function (isLogin) {
+					if (isLogin) {
+						// var t = new Date().getTime();
+						// UIUtils.openWindow('我要支持', 'projectbuy.html?t='+t, 660, 500);	
+						$("#btn_buy").fancybox({ 'width': 660, 'height': 500, 'autoSize': false, 'autoHeight': false, 'type': 'iframe', 'modal': false, 'hideOnOverlayClick': false, 'autoScale': false, 'autoDimensions': false });
+					}
+					else {
+						$("#btn_buy").hide();
+						// layer.alert('登录已过期，请您先登录！', { title: '出错了', icon: 5 });
+					}
+				});
+			}
+		};
+		$(function () {
+			ProjectInfo.init();
+
+			id = Utils.getUrlParam("id");
+			if (!id) {
+				window.location.href = "project.html";
+				return;
+			}
+			DataUtils.getProjectInfo(id, function (data) {
+				model = data;
+				console.log(data);
+
+			});
+
+
+
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>区块链产品消费交易众筹平台-项目信息</title>
+    <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="css/site.css" rel="stylesheet" type="text/css">
+    <style>
+        .content{
+      display: inline-block;
+      width: 100%;
+    }
+    .container {
+      width: auto;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .portfolio_title {
+      padding-top: 300px;
+      background: url(images/topbg.jpg) no-repeat;
+      background-size: 100% 100%;
+      height: 300px;
+    }
+    .section-title h2 {
+      color: #fff;
+      font-size: 44px;
+      text-align: center;
+    }
+    .section-title h6 {
+      font-size: 26px;
+      color: #fff;
+      font-weight: 400;
+      text-align: center;
+      margin: 30px 0 80px 0;
+    }
+    #filters {
+      margin-top: 10px;
+      margin-bottom: 40px;
+      text-align: center;
+      display: block;
+      float: none;
+      z-index: 2;
+      position: relative;
+    }
+ul {
+    list-style: none;
+}
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#filters ul li {
+    display: inline-block;
+    margin: 0 5px;
+}
+#filters ul li a {
+    display: block;
+}
+a, a:hover, a:active {
+    outline: 0px !important;
+    text-decoration: none;
+}
+a {
+    color: #337ab7;
+}
+#filters ul li a:hover h5, #filters ul li a.active h5 {
+    background: #0294FD;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: #0294FD solid 1px;
+}
+#filters ul li a h5 {
+    background: none repeat scroll 0 0 #f7f7f7;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    padding: 10px 22px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out 0s;
+    color: #fff;
+    border: 1px solid #c2c2c2;
+    border-color: rgba(255,255,255,.2);
+    background-color: transparent;
+}
+.content-grids {
+    padding: 30px 0;
+    min-height: 500px;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+.more-grids{
+    text-align: center;
+    margin-top: 50px;
+}
+.more-grids .button{
+    padding: 10px 50px;
+    /* background-color: #fc7700; */
+    border-radius: 4px;
+    font-size: 16px;
+}
+.progress-text{
+    color: #289cd8;
+}
+.progress-text span{
+    float: left;
+    margin-left: 10px;
+}
+.progress-text strong{
+    float: right;
+    margin-right: 10px;
+}
+.progress {
+    height: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+.progress-bar{
+    background-color: #289cd8;
+}
+.grid {
+    float: left;
+    width: 330px;
+    box-shadow: 2px 3px 3px #ccc;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    padding: 15px;
+    color: #7e7e7e;
+    text-align: center;
+    margin: 30px 10px;
+}
+.grid img {
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0;
+    width:330px;
+    height: 135px;
+}
+.grid h3{
+	text-transform: uppercase;
+	padding: 8px 0;
+	margin-bottom: 8px;
+	font-size: 1.6em;
+	color: #289cd8;
+	border-bottom: 1px solid #dedede;
+    font-family: 'PT Sans Narrow', sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.grid p{
+	font-size: 0.875em;
+	color: rgba(148, 145, 145, 0.84);
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0em 1em 1em 1em;
+	line-height: 1.5em;
+}
+.grid .info{
+    text-align: left;
+    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.grid .time{
+    margin-bottom: 20px;
+}
+.grid .start-time{
+    float: left;
+}
+.grid .end-time{
+    float: right;
+}
+.button{
+	font-family: 'Roboto', sans-serif;
+	color: #ffffff;
+	background-color: #289cd8;
+	display: inline-block;
+	text-transform: uppercase;
+	padding: 7px 30px;
+	font-size: 0.875em;
+	transition: 0.5s ease;
+	-o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    border-radius: 4px;
+}
+.button:hover{
+	background-color: #7e7e7e;
+}
+.last-grid{
+	margin:0px;
+}
+
+.portfolio-item .portfolio_img {
+    overflow: hidden;
+    display: block;
+    position: relative;
+}
+
+.portfolio-item .portfolio_img img {
+    width: 100%;
+    height: auto;
+}
+
+.portfolio-item:hover .item_overlay {
+    opacity: 1;
+    transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -webkit-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+}
+
+.item_overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+h3 {
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+  </style>
+</head>
+
+<body>
+    <div class="layout-container">
+        <div class="layui-header"></div>
+        <section id="Portfolio" class="content">
+
+            <div class="portfolio_title">
+                <!-- Container -->
+                <div class="container">
+                    <div class="section-title">
+                        <h2>项目日历</h2>
+                        <!-- <h6>Lorem ipsum dolor sit amet, consectetur Morbi sagittis, sem quisci ipsum</h6> -->
+                        <h6>拥抱未来 数区改变生活</h6>
+                    </div>
+                    <!-- Portfolio Filters -->
+                    <div id="filters" class="sixteen columns">
+                        <ul class="clearfix">
+                            <li><a href="javascript:void(0);" data-filter="" class="active">
+                                    <h5>全部</h5>
+                                </a></li>
+                            <li><a class="" href="javascript:void(0);" data-filter="2">
+                                    <h5>已完成</h5>
+                                </a></li>
+                            <li><a class="" href="javascript:void(0);" data-filter="1">
+                                    <h5>进行中</h5>
+                                </a></li>
+                            <li><a class="" href="javascript:void(0);" data-filter="0">
+                                    <h5>即将开始</h5>
+                                </a></li>
+                        </ul>
+                    </div>
+                    <!--/Portfolio Filters -->
+
+                </div>
+                <!-- Container -->
+            </div>
+
+
+            <div class="container portfolio">
+                <!-- Portfolio Wrapper -->
+                <div class="content-grids"></div>
+                <!--/Portfolio Wrapper -->
+
+            </div>
+            <!--/Portfolio Filters -->
+
+        </section>
+        <div class="layui-bottom"></div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+    <script type="text/javascript" src="/statics/layui/layui.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/include.js"></script>
+    <script type="text/javascript" src="js/project.js"></script>
+
+</body>
+
+</html>

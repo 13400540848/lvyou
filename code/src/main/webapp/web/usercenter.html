@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-个人中心</title>
+  <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+  <link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+  <link href="css/site.css" rel="stylesheet" type="text/css">
+  <link href="css/usercenter.css" rel="stylesheet" type="text/css">
+  <style>
+  </style>
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="layui-header"></div>
+    <div class="layui-main site-inline">
+      <div class="site-tree">
+        <ul class="layui-head">
+          <li>
+            <img src="" id="img_head" />
+          </li>
+          <li>
+            <span id="nick_name">
+              账户：zhanzhen
+            </span>
+          </li>
+          <li>
+            <span id="user_id">
+              ID:zhanzhen
+            </span>
+          </li>
+        </ul>
+        <ul class="layui-tree">
+          <li class="head">
+            <h2>个人中心</h2>
+          </li>
+          <li class="site-tree-noicon layui-this">
+            <a href="javascript:void(0);" data-src="usercenter/mymoney.html">
+              <cite>我的资产</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/mymoneylog.html">
+              <cite>资产流水</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/myinfo.html">
+              <cite>实名认证</cite>
+            </a>
+          </li>
+          <li id="liCNY" class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/mycny.html">
+              <cite>CNY充提</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/myrecharge.html">
+              <cite>代币充值</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/mycash.html">
+              <cite>代币提现</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/mydgchange.html">
+              <cite>DG兑换</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/myproject.html">
+              <cite>代币投资</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/modifypassword.html">
+              <cite>修改密码</cite>
+            </a>
+          </li>
+          <li class="site-tree-noicon">
+            <a href="javascript:void(0);" data-src="usercenter/myinvitereward.html">
+              <cite>邀请奖励</cite>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="site-content">
+        <iframe src="usercenter/mymoney.html?t=1536674291015" id="iframe_body" width="100%" height="100%" frameborder="0"
+          style="height: 100%; width: 100%; overflow:auto;"></iframe>
+      </div>
+    </div>
+
+    <div class="layui-bottom"></div>
+  </div>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+  <script type="text/javascript" src="/statics/layui/layui.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/include.js"></script>
+  <script>
+    var UserCenter = {
+      "init": function () {
+        this.loadInfo();
+        this.loadLeftMenu();
+
+        $(".layui-tree a").on("click", function (e) {
+          var aurl = $(this).attr("data-src");
+          if (aurl) {
+            $.each($(".layui-tree a"), function (i, item) {
+              $(item).parent().removeClass("layui-this");
+            });
+            var t = new Date().getTime();
+            aurl += (aurl.indexOf('?') >= 0 ? '&' : '?') + 't=' + t;
+            $("#iframe_body").attr("src", aurl);
+            $(this).parent().addClass("layui-this");
+          }
+          return false;
+        });
+      },
+      "loadInfo": function () {
+        $.ajax({
+          url: Config.WEB_SERVER_API + Config.URI.USER_INFO,
+          type: 'GET',
+          async: false,
+          data: {},
+          success: function (data) {
+            if (!data) {
+              return;
+            }
+            if (!data || data.resultCode != "200") {
+              window.location.href = "index.html";
+            } else {
+              $("#nick_name").text("账户：" + data.rows.nickName);
+              $("#user_id").text("ID：" + data.rows.bizId);
+              var head = data.rows.headImage || '/statics/images/head.jpg';
+              $("#img_head").attr('src', head);
+            }
+          },
+          error: function (xhr, type, errorThrown) {
+            console.log(xhr);
+          }
+        });
+      },
+      "loadLeftMenu": function () {
+        DataUtils.getConfigList(function (configs) {
+          if (configs && configs.length > 0) {
+            for (var i = 0; i < configs.length; i++) {
+              if (configs[i].value == "0") {
+                if (configs[i].code == "CNY") {
+                  $("#liCNY").hide();
+                }
+              }
+            }
+          }
+        });
+      }
+    };
+    $(function () {
+      UserCenter.init();
+      $(window).resize(function (e) {
+        var h = $(window).height() - 120;
+        console.log(h);
+        $(".site-content").height(h);
+        $(".site-tree").height(h);
+      }).resize();
+
+      var menu = Utils.getUrlParam("menu");
+      if (menu) {
+        menu = parseInt(menu);
+        $.each($(".layui-tree a"), function (i, item) {
+          if (i == menu) {
+            $(this).click();
+          }
+        });
+      }
+    });
+
+  </script>
+</body>
+
+</html>

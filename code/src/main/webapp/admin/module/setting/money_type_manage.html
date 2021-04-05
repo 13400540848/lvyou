@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="js/money_type_manage.js"></script>
+    <title>币种设置</title>
+    <style>
+        .kv-item label {
+            width: 6em;
+        }
+
+        .kv-item select {
+            width: 130px;
+        }
+
+        .iselect-wrapper {
+            width: 105px;
+        }
+
+        .search-box .kv-item {
+            float: left;
+        }
+
+        .search-box .kv-item input {
+            width: 130px;
+        }
+
+        .search-box .sapar-btn {
+            float: left;
+            margin-left: 20px;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+
+<body style="overflow:hidden;">
+    <div id="saper-container">
+        <div id="saper-hd"></div>
+        <div id="saper-bd">
+            <div class="subfiled clearfix">
+                <h2>币种设置</h2>
+            </div>
+            <div class="subfiled-content" id="tbQueryBody">
+                <div class="search-box clearfix">
+                    <div class="kv-item clearfix">
+                        <label>类型：</label>
+                        <div class="kv-item-content">
+                            <select id="tbMode" field="typeMode">
+                                <option value="">——全部——</option>
+                                <option value="0">代币</option>
+                                <option value="1">投资币种</option>
+                                <option value="2">系统</option>
+                            </select>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="sapar-btn sapar-btn-recom query-btn">查询</a>
+                    <a href="javascript:;" class="sapar-btn sapar-btn-recom reset-btn">重置</a>
+                </div>
+                <!--表格开始-->
+                <div class="table">
+                    <!--表格操作-->
+                    <div class="table-operate ue-clear">
+                        <a id="btnAdd" href="javascript:;" class="add">添加币种</a>
+                        <!-- <a id="btnExportExcel" href="javascript:;" class="check">导出excel</a> -->
+                    </div>
+                    <!--表格具体内容-->
+                    <div class="table-box" style="overflow:auto;">
+                        <table id="table" class="table table-bordered" style="table-layout:fixed;"></table>
+                    </div>
+                </div>
+                <!--表格结束-->
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    // $('select').iSelect();
+</script>
+
+</html>

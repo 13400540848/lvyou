@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/project_add.css" /> -->
+    <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+    <script src="/statics/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="js/money_type_add.js"></script>
+    <style>
+        .kv-item {
+        margin: 10px 0;
+        float: left;
+        font-size: 14px;
+    }
+    .kv-item label{
+        padding-left:10px;
+    }
+    .foot-botton{
+        text-align: center;
+    }
+    .foot-btn {
+        padding: 8px 20px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #6AB96E;
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0% 0% #6AB96E;
+    }
+    .foot-btn:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #btnClose{
+        margin-left: 20px;
+        border: 1px solid #cccccc;
+        background: none repeat scroll 0% 0% #cccccc;
+    }
+    .tab-content{
+        height: 320px;
+    }
+</style>
+    <title>币种添加/修改</title>
+</head>
+
+<body style="overflow:hidden">
+    <div id="saper-container">
+        <div id="saper-bd">
+            <div class="subfiled-content">
+                <div class="tab-container" data-trigger="click">
+                    <div class="tab">
+                        <a href="javascript:;" class="current">基本信息</a>
+                        <a href="javascript:;">手续费</a>
+                        <a href="javascript:;">其他</a>
+                    </div>
+                    <div class="tab-content" id="tbForm">
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>币种名称：</label>
+                                <div class="kv-item-content">
+                                    <input field="typeName" required="required" type="text" placeholder="币种名称" /><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>币种标识：</label>
+                                <div class="kv-item-content">
+                                    <input field="typeCode" required="required" type="text" placeholder="币种标识" /><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>币种类型：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbMode" field="typeMode">
+                                        <option value="0">代币</option>
+                                        <option value="1">投资币种</option>
+                                        <option value="2">系统</option>
+                                    </select><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>充值二维码：</label>
+                                <div class="kv-item-content">
+                                    <img id="imageView" style="width:100px; height:100px;" />
+                                    <input id="tbImage" type="hidden" field="qrCode" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>充值地址：</label>
+                                <div class="kv-item-content">
+                                    <input field="rechargeAddress" type="text" placeholder="充值地址" />
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>充值手续费：</label>
+                                <div class="kv-item-content">
+                                    <input field="rechargeBrokePercent" required="required" type="text" value="0"
+                                        placeholder="充值手续费" /><span class="impInfo">%</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>提现手续费：</label>
+                                <div class="kv-item-content">
+                                    <input field="cashBrokePercent" required="required" type="text" value="0"
+                                        placeholder="提现手续费" /><span class="impInfo">%</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>DG兑换手续费：</label>
+                                <div class="kv-item-content">
+                                    <input field="dgBrokePercent" required="required" type="text" value="0"
+                                        placeholder="DG兑换手续费" /><span class="impInfo">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>提现下限：</label>
+                                <div class="kv-item-content">
+                                    <input field="cashMin" type="text" value="0" placeholder="提现数量下限" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>提现手续费下限：</label>
+                                <div class="kv-item-content">
+                                    <input field="cashBrokeMin" type="text" value="0" placeholder="提现手续费下限" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>提现手续费上限：</label>
+                                <div class="kv-item-content">
+                                    <input field="cashBrokeMax" type="text" value="0" placeholder="提现手续费上限" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>DG兑换比例：</label>
+                                <div class="kv-item-content">
+                                    （1：<input field="dgScale" style="width:40px;" type="text" required="required" value="1" placeholder="DG兑换比例" />）
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+                    <a id="btnClose" href="javascript:;" class="foot-btn">取消</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

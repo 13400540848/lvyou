@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-娱乐消费回赠</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="css/animate.css" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link href="css/responsive.css" rel="stylesheet">
+  <link href="css/usercenter.css" rel="stylesheet">
+  <link href="/statics/layui/css/layui.css" rel="stylesheet" media="all">
+  <style>
+    .site-tree .layui-tree .head{
+      height: 50px;
+      line-height: 50px;
+      margin-bottom:10px;
+    }
+    .site-tree .layui-tree li h2{
+      line-height: 50px;
+      padding:0 20px;
+    }
+    .site-tree .layui-tree{
+      line-height: 36px;
+    }
+    .layui-tab-item{
+      height: 840px;
+    }
+    .layui-tab-content{
+      padding: 20px 0;
+    }
+    .layui-tab-brief>.layui-tab-title .layui-this{
+      color: #3b85c8;
+    }
+    .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+      border-bottom: 2px solid #3b85c8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--Header_section-->
+  <header id="header_wrapper"></header>
+  <!--Header_section-->
+
+  <div class="layui-main site-inline container">
+      <div class="section-title">
+          <h2>娱乐消费回赠</h2>
+          <!-- <h6>Lorem ipsum dolor sit amet, consectetur Morbi sagittis, sem quisci ipsum</h6> -->
+          <h6>&nbsp;</h6>
+        </div>
+    <!-- <div class="site-tree">
+      <ul class="layui-tree">
+        <li class="head">
+          <h2>娱乐消费回赠</h2>
+        </li>
+        <li class="site-tree-noicon layui-this">
+          <a href="javascript:void(0);" data-src="playreturn/seven.html">
+            <cite>幸运七个球</cite>
+          </a>
+        </li>
+        <li class="site-tree-noicon">
+          <a href="javascript:void(0);" data-src="playreturn/three.html">
+            <cite>三个胖骰子</cite>
+          </a>
+        </li>
+        <li class="site-tree-noicon">
+          <a href="javascript:void(0);" data-src="usercenter/mydgchange.html">
+            <cite>对换DG</cite>
+          </a>
+        </li>
+        <li class="site-tree-noicon">
+          <a href="javascript:void(0);" data-src="usercenter/myproject.html">
+            <cite>回赠记录</cite>
+          </a>
+        </li>
+        <li class="site-tree-noicon">
+          <a href="javascript:void(0);" data-src="usercenter/modifypassword.html">
+            <cite>玩法说明</cite>
+          </a>
+        </li>
+      </ul>
+    </div> -->
+    <div class="layui-tab layui-tab-brief">
+      <ul class="layui-tab-title">
+        <li class="layui-this">幸运七个球</li>
+        <li>三个胖骰子</li>
+        <li id="tabChangeDG">对换DG</li>
+      </ul>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+          <iframe src="playreturn/seven.html?t=1536674291015" id="iframe_body" width="100%" height="100%" frameborder="0" style="height: 100%; width: 100%; overflow:auto;"></iframe>
+        </div>
+        <div class="layui-tab-item">
+          <iframe src="playreturn/three.html?t=1536674291015" width="100%" height="100%" frameborder="0" style="height: 100%; width: 100%; overflow:auto;"></iframe>
+        </div>
+        <div class="layui-tab-item">
+          <iframe id="iframeChangeDG" src="" width="100%" height="100%" frameborder="0" style="height: 100%; width: 100%; overflow:auto;"></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="site-content">
+      <iframe src="playreturn/seven.html?t=1536674291015" id="iframe_body" width="100%" height="100%" frameborder="0"
+        style="height: 100%; width: 100%; overflow:auto;"></iframe>
+    </div> -->
+  </div>
+
+  <!--Footer-->
+  <footer id="footer_wrapper"></footer>
+
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/include.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
+  <script type="text/javascript" src="js/jquery.nav.js"></script>
+  <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+  <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+  <script type="text/javascript" src="js/respond-1.1.0.min.js"></script>
+
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script>
+    var PlayReturn = {
+      "init": function () {
+        PlayReturn.resize();
+
+        layui.use(['element'], function () {
+          var element = layui.element;
+        });
+
+        DataUtils.getUserIsLogin(function (isLogin, user) {
+          if (isLogin) {
+            $("#tabChangeDG").show();
+            $("#iframeChangeDG").attr("src", "usercenter/mydgchange.html?t=" + new Date().getTime());
+          } else {
+            $("#tabChangeDG").hide();
+          }
+        });
+
+        // this.checkLogin(function (user) {
+        //   var head = user.headImage || '/statics/images/head.jpg';
+        //   $("#img_head").attr('src', head);
+        //   PlayReturn.resize();
+        // });
+
+        // DataUtils.getConfigList(function (configs) {
+        //   if (configs && configs.length > 0) {
+        //     for (var i = 0; i < configs.length; i++) {
+        //       if (configs[i].value == "0") {
+        //         if (configs[i].code == "CNY") {
+        //           $("#liCNY").hide();
+        //         }
+        //       }
+        //     }
+        //   }
+        // });
+
+      },
+      "checkLogin": function (callback) {
+        DataUtils.getUserIsLogin(function (isLogin, user) {
+          if (isLogin) {
+            if (callback) {
+              callback(user);
+            }
+          } else {
+            window.location.href = "index.html";
+          }
+        });
+      },
+      "resize": function () {
+        $(".layui-tree a").on("click", function (e) {
+          var aurl = $(this).attr("data-src");
+          if (aurl) {
+            $.each($(".layui-tree a"), function (i, item) {
+              $(item).parent().removeClass("layui-this");
+            });
+            var t = new Date().getTime();
+            aurl += (aurl.indexOf('?') >= 0 ? '&' : '?') + 't=' + t;
+            $("#iframe_body").attr("src", aurl);
+            $(this).parent().addClass("layui-this");
+          }
+          return false;
+        });
+
+        $(window).resize(function (e) {
+          var h = $(window).height() - 300;
+          console.log(h);
+          // $(".layui-tab-item").height(h);
+        }).resize();
+      }
+    };
+    $(function () {
+      PlayReturn.init();
+    });
+
+  </script>
+</body>
+
+</html>

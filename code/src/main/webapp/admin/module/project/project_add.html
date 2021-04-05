@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../css/sapar.css" />
+<link href="/statics/umeditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+<script src="/statics/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../js/sapar.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+<script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/utils.js"></script>
+<script type="text/javascript" src="../../js/WdatePicker.js"></script>
+<script type="text/javascript" src="js/project_add.js"></script>
+<style>
+    .kv-item {
+        margin: 10px 0;
+        float: left;
+        font-size: 14px;
+    }
+    .kv-item label{
+        padding-left:40px;
+    }
+    .table-box{
+        overflow: auto;
+    }
+    .table tbody tr td {
+        white-space: normal;
+    }
+    .foot-botton{
+        text-align: center;
+    }
+    .foot-btn {
+        padding: 8px 20px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #6AB96E;
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0% 0% #6AB96E;
+    }
+    .foot-btn:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #btnClose{
+        margin-left: 20px;
+        border: 1px solid #cccccc;
+        background: none repeat scroll 0% 0% #cccccc;
+    }
+    .tab-container{
+        height: 460px;
+    }
+    #tbDescription{
+        width: 640px;
+        height: 120px;
+    }
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<title>项目添加/修改</title>
+</head>
+<body style="overflow:auto;">
+    <div id="saper-container">
+        <div id="saper-hd"></div>
+        <div id="saper-bd">
+            <div class="subfiled-content">
+                <div class="tab-container" data-trigger="click">
+                    <div class="tab">
+                        <a href="javascript:;" class="current">基本信息</a>
+                        <a href="javascript:;">项目图片</a>
+                        <a href="javascript:;">项目内容</a>
+                        <a id="tab3" href="javascript:;">支持代币</a>
+                    </div>
+                    <div class="tab-content" id="tbForm">
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>项目名称：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbName" required="required" type="text" placeholder="项目名称" field="title" /><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>当前进度：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbProgress" required="required" type="text" value="0" field="progress" />
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>当前状态：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbStatus" required="required" field="status">
+                                        <option value="0">待发布</option>
+                                        <option value="1">已发布</option>
+                                        <option value="2">下架</option>
+                                    </select><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>项目评级：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbStar" required="required" field="star">
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="1">1</option>
+                                    </select><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>开始时间：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbStartTime" required="required" field="startTime" format="date" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" placeholder="开始时间" /><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>结束时间：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbEndTime" required="required" field="endTime" format="date" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" placeholder="结束时间" /><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <!-- <div class="kv-item clearfix">
+                                <label>首页推荐：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbIsRecommend" field="isRecommend">
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select><span class="impInfo">*</span>
+                                </div>
+                            </div> -->
+                            <div class="kv-item clearfix">
+                                <label>投资币种：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbMoneyTypeId" required="required" field="moneyTypeId"></select><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>手续费 %：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbBrokePercent" required="required" type="text" placeholder="手续费" field="brokePercent" value="6" /><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>用户数量：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbUserCount" type="text" placeholder="用户数量" field="userCount" /><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <!-- <div class="kv-item clearfix">
+                                <label>目标数量：</label>
+                                <div class="kv-item-content">
+                                    <input id="tbMoneyAll" type="text" placeholder="目标数量" field="moneyAll" /><span class="impInfo">*</span>
+                                </div>
+                            </div> -->
+                            <div class="kv-item clearfix">
+                                <label>投资说明：</label>
+                                <div class="kv-item-content" required="required" field="description">
+                                    <textarea id="tbDescription" placeholder="投资说明" field="description"></textarea><span class="impInfo">*</span>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>项目图片：</label>
+                                <div class="kv-item-content">
+                                    <button type="button" class="layui-btn" id="uploadImage">
+                                        <i class="layui-icon">&#xe67c;</i>上传图片
+                                    </button>
+                                    <br /><br />
+                                    <img id="imageView" style="width:400px; height:200px;" />
+                                    <input id="tbImage" type="hidden" field="image" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table" style="overflow:auto">
+                                <!-- 加载编辑器的容器 -->
+                                <script id="container" name="content" type="text/plain"></script>
+                                <script src="/statics/umeditor/third-party/template.min.js"></script>                            
+                                <!-- 配置文件 -->
+                                <script type="text/javascript" src="/statics/umeditor/umeditor.config.js"></script>
+                                <!-- 编辑器源码文件 -->
+                                <script type="text/javascript" src="/statics/umeditor/umeditor.js"></script>
+                                <script type="text/javascript" src="/statics/umeditor/lang/zh-cn/zh-cn.js"></script>                            
+                                <!-- 实例化编辑器 -->
+                                <script type="text/javascript">
+                                    var um = UM.getEditor('container', {
+                                        autoHeightEnabled: false,
+                                        initialFrameWidth:780,
+                                        initialFrameHeight:330
+                                    });
+                                </script>
+                            </div>                            
+                        </div>
+                        <div class="tab-content-item" style="display: none;">
+                            <div class="table">
+                                <div class="table-operate ue-clear">
+                                    <a id="btnAddType" href="javascript:;" class="add">添加币种</a>
+                                    <!-- <a id="btnExportExcel" href="javascript:;" class="check">导出excel</a> -->
+                                </div>
+                                <div class="table-box">
+                                    <table id="tableType"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+                    <a id="btnClose" href="javascript:;" class="foot-btn">取消</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    // $('select').iSelect();
+   
+</script>
+</html>

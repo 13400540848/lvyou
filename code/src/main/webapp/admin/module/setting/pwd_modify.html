@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../css/sapar.css" />
+<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../js/sapar.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/utils.js"></script>
+<script type="text/javascript" src="js/pwd_modify.js"></script>
+<title>系统首页</title>
+<style>
+	.kv-item label {
+		width: 120px;
+	}
+	.subfiled-content {
+		padding: 40px 0 0 0;
+	}
+	.sapar-btn {
+		margin-top: 30px;
+		padding: 0px 30px;
+	}
+</style>
+</head>
+
+<body>
+    <div id="saper-container">
+        <div id="saper-hd"></div>
+        <div id="saper-bd">
+            <div class="subfiled clearfix">
+                <h2>修改密码</h2>
+            </div>
+			<div class="subfiled-content" id="tbForm">
+				<div class="kv-item clearfix">
+					<label>原密码：</label>
+					<div class="kv-item-content">
+						<input type="password" placeholder="原密码" field="oldPassword" required="required" /><span class="impInfo">*</span>
+					</div>
+				</div>
+				<div class="kv-item clearfix">
+					<label>新密码：</label>
+					<div class="kv-item-content">
+						<input type="password" placeholder="新密码" field="newPassword" required="required"><span class="impInfo">*</span>
+					</div>
+				</div>
+				<div class="kv-item clearfix">
+					<label>确认密码：</label>
+					<div class="kv-item-content">
+						<input id="tbSurePassword" type="password" placeholder="确认密码" field="surePassword" required="required"><span class="impInfo">*</span>
+					</div>
+				</div>
+				<div class="kv-item clearfix">
+					<label></label>
+					<div class="kv-item-content">
+						<a id="btnSave" href="javascript:;" class="sapar-btn sapar-btn-recom">确定</a>
+					</div>
+				</div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+    
+</body>
+
+<script type="text/javascript">
+</script>
+</html>

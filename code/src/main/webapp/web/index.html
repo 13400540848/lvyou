@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-首页</title>
+  <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+  <link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+  <link href="css/site.css" rel="stylesheet" type="text/css">
+  <style>
+
+    .layui-carousel{
+    margin: 0 auto;
+    /* max-width: 1600px; */
+  }
+  .layui-carousel>[carousel-item]>*{
+    text-align: center;
+  }
+  .layui-carousel-item{
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+  }
+  
+  .layui-carousel-ind{
+    top: -70px;
+  }
+    .notice {
+      width: 1000px;
+      border-radius: 4px;
+      background-color: #fff;
+      font-size: 16px;
+      line-height: 64px;
+      height: 64px;
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      margin-left: -500px;
+      z-index: 100;
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      /* overflow: hidden; */
+    }
+    .notice .icon {
+        position: absolute;
+        top: 15px;
+        left: -10px;
+        width: 32px;
+        height: 32px;
+        background: url(images/notice.png) no-repeat;
+    }
+    .notice .body {
+      display: block;
+      margin: 0 40px;
+      overflow: hidden;
+      height: 40px;
+  }
+    .aboutUs-container {
+      background-image: url(images/aboutus_bg.jpg);
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 100%;
+      height: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .aboutUs-container h2{
+      font-size: 48px;
+      color: #fff;
+      font-weight: normal;
+      text-align: center;
+      text-transform: uppercase;
+      padding-top: 80px;
+    }
+    .aboutUs-container h6{
+      font-size: 28px;
+      color: #fff;
+      font-weight: normal;
+      text-align: center;
+      text-transform: uppercase;
+      padding-top: 10px;
+    }
+    .button {
+      font-family: 'Roboto', sans-serif;
+      color: #ffffff;
+      background-color: #289cd8;
+      display: inline-block;
+      text-transform: uppercase;
+      padding: 15px 70px;
+      font-size: 30px;
+      transition: 0.5s ease;
+      -o-transition: 0.5s ease;
+      -webkit-transition: 0.5s ease;
+      border-radius: 4px;
+    }
+    .aboutUs-container .info{
+      font-size: 22px;
+      color: #fff;
+      margin-top: 37px;
+    }
+    .introduce-container{
+      height: 400px;
+      margin: 0 auto;
+      position: relative;
+      background-color: #F6F6F6;
+    }
+    .introduce-body {
+      width: 1200px;
+      border-radius: 4px;
+      font-size: 16px;
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      margin-left: -600px;
+      z-index: 100;
+    }
+    .introduce-title{
+      padding: 15px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      color: #1f1d1d;
+    }
+    .introduce-tip{
+      padding: 10px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      color: #9a9494;
+    }
+  .desc-wrap{
+    padding-top: 100px;
+    background-color: #ecf0f1;
+    margin: 0 auto;
+    }
+    .desc-wrap .container-wrap{
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+    .desc-wrap .announcement-title{
+        height: 42px;
+        line-height: 42px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #eaeaea;
+    }
+    .desc-wrap .title-item{
+        width: 120px;
+        font-size: 18px;
+        text-align: center;
+        margin: 0 55px;
+        cursor:pointer;
+    }
+    .desc-wrap .active-item{
+        color: #ffa30b;
+        border-bottom: 2px solid #ffa30b;
+    }
+    .desc-wrap .process-desc{
+      height: 295px;
+      padding: 60px 170px 0 210px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .desc-wrap .process-item{
+        width: 350px;
+        height: 210px;
+        padding: 30px;
+        background-color: #e7ebef;
+        position: relative;
+        border-radius: 10px;
+        margin-left: 20px;
+    }
+    .bd-gray-color{
+        color: #999999;
+     }
+    .process-time{
+        height: 36px;
+        line-height: 36px;
+    }
+    .process-title{
+        font-size: 20px;
+        margin-bottom: 20px;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .process-desc-2{
+        padding: 0 !important;
+    }
+    .process-desc a:hover{
+      background-color: #383838 !important;
+      color: #fff;
+    }
+    .process-desc a:hover .process-time{
+      color: #ffa30b;
+    }
+    .process-desc a:hover .process-title{
+        color: #fff;
+    }
+    .process-desc a:hover .process-item-des{
+        border-color: #fff;
+        color: #fff;
+    }
+    .process-item-des{
+        line-height: 26px;
+        height: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .desc-wrap .process-desc a:hover{
+        color: #383838;
+    }
+  .aboutus-content {
+      width: 1000px;
+      border-radius: 4px;
+      background-color: #F2F2F2;
+      font-size: 16px;
+      position: absolute;
+      left: 50%;
+      bottom: 55px;
+      margin-left: -500px;
+      z-index: 100;
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      /* overflow: hidden; */
+    }
+    .aboutus-body {
+      display: block;
+      margin: 5px;
+      overflow: hidden;
+      height: 250px;
+  }
+    .layui-col-md{
+      float:left;
+    }
+    .layui-col-space15{
+      margin:0;
+    }
+    .layui-card-body{
+      height: 145px;
+    }
+    .layui-card-header {
+      font-size: 16px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="layui-header"></div>
+    <div class="layui-body">
+      <!-- 内容主体区域 -->
+      <div class="layui-carousel" id="advert_index">
+        <div class="layui-carousel-body" carousel-item="">
+          <div class="layui-carousel-item" code="1" style="background-image:url(images/slider/slide.jpg)"></div>
+          <div class="layui-carousel-item" code="2" style="background-image:url(images/slider/slide.jpg)"></div>
+        </div>
+        <div id="advert_notice" class="notice">
+          <span class="icon"></span>
+          <div class="body">
+          </div>
+        </div>
+      </div>
+      <div class="desc-wrap" id="advert_active">
+        <div class="container-wrap">
+          <div class="announcement-wrap">
+            <div class="announcement-title">
+              <div data-id="announcementDes" class="title-item active-item">官方公告</div>
+              <div data-id="activeDes" class="title-item">最新活动</div>
+            </div>
+            <div class="tab-wrap" id="announcementDes" style="display: block;">
+              <div class="process-desc process-desc-1"></div>
+              <div class="process-desc process-desc-2"></div>
+            </div>
+            <div class="tab-wrap" style="display: none;" id="activeDes">
+              <div class="process-desc process-desc-1"></div>
+              <div class="process-desc process-desc-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="aboutUs-container" id="about_us">
+        <h2>关于我们</h2>
+        <h6>about us</h6>
+        <!-- <div style="text-align: center; margin-top: 90px;">
+          <a class="button" target="_blank" href="file/white_paper.pdf">白皮书</a>
+        </div> -->
+        <div class="info" style="text-align: center;">
+          我们是区块链资产消费交易众筹平台 我们将尽最大努力服务好我们的用户
+        </div>
+        <div class="aboutus-content">
+          <div class="aboutus-body">
+            <div class="layui-field-box" style="padding: 15px; background-color: #F2F2F2;">
+              <div class="layui-row layui-col-space15">
+                <div class="layui-col-md" style="width:32%;">
+                  <div class="layui-card seven-logo">
+                    <div class="layui-card-header">平台说明</div>
+                    <div class="layui-card-body">
+                      数区网致力于打造全球专业区块链产品交易流通娱乐的综合性平台促进区块链产品融入生活，目前主要向大家提供比特币、以太坊转化的相关娱乐服务，之后逐步扩展区块链相关产品的交易消费领域。
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-md" style="width:32%;">
+                  <div class="layui-card">
+                    <div class="layui-card-header">解决诉求</div>
+                    <div class="layui-card-body">
+                      数区网将解决目前区块链产品流通方式单一，推动虚拟币进一步深入我们的生活。将它逐步与我们消费娱乐结合起来并逐步实现。让梦想在区块链中实现。
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-md" style="width:31%;">
+                  <div class="layui-card">
+                    <div class="layui-card-header">我们的愿景</div>
+                    <div class="layui-card-body">
+                      我们信仰比特币和区块链的核心思想，认为分布式账本和智能合约技术将构建人类的信任基础，消除交易壁垒，提升交易效率，对人类的实体经济产生重大的影响。
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="introduce-container">
+        <div class="introduce-body">
+          <table style="width:100%; border:0px;">
+              <tr>
+                <td style="text-align:center; width:20%">
+                  <img src="images/introduce1.png" />
+                </td>
+                <td style="text-align:center; width:20%">
+                  <img src="images/introduce2.png" />
+                </td>
+                <td style="text-align:center; width:20%">
+                  <img src="images/introduce3.png" />
+                </td>
+                <td style="text-align:center; width:20%">
+                  <img src="images/introduce4.png" />
+                </td>
+                <td style="text-align:center; width:20%">
+                  <img src="images/introduce5.png" />
+                </td>
+              </tr>
+              <tr>
+                <td class="introduce-title">
+                  安全可靠
+                </td>
+                <td class="introduce-title">
+                  诚信运营
+                </td>
+                <td class="introduce-title">
+                  公平公正
+                </td>
+                <td class="introduce-title">
+                  用户第一
+                </td>
+                <td class="introduce-title">
+                  专业团队
+                </td>
+              </tr>
+              <tr>
+                <td class="introduce-tip">
+                  多层 多集群安全架构保障资金绝对安全
+                </td>
+                <td class="introduce-tip">
+                  <span>平台面向广大用户监督 杜绝一切作弊行为
+                </td>
+                <td class="introduce-tip">
+                  <span>平台绝不允许冒用信息非法盈利等行为
+                </td>
+                <td class="introduce-tip">
+                  用最专业体贴的服务面对广大用户
+                </td>
+                <td class="introduce-tip">
+                  我们都是多年在相关领域工作的人组成参与
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="layui-bottom"></div>
+  </div>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+  <script type="text/javascript" src="/statics/layui/layui.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/include.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>

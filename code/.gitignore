@@ -1,0 +1,9 @@
+/target/
+/.settings
+/.idea
+/.externalToolBuilders
+/.project
+/org.ume.school.iml
+/bin/
+/logs/
+/statics/upload/

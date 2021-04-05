@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="js/project_manage.js"></script>
+    <title>项目管理</title>
+    <style>
+        .kv-item label {
+            width: 6em;
+          }
+          .kv-item select {
+            width: 130px;
+          }
+          .iselect-wrapper{
+            width: 105px;
+          }
+          .search-box .kv-item{
+            float: left;
+          }
+          .search-box .kv-item input{
+            width: 130px;
+          }
+          .search-box .sapar-btn{
+            float: left;
+            margin-left: 20px;
+            padding: 0 20px;
+          }
+    </style>
+</head>
+
+<body style="overflow:hidden;">
+    <div id="saper-container">
+        <div id="saper-hd"></div>
+        <div id="saper-bd">
+            <div class="subfiled clearfix">
+                <h2>项目管理</h2>
+            </div>
+            <div class="subfiled-content" id="tbQueryBody">
+                <div class="search-box clearfix">
+                    <div class="kv-item clearfix">
+                        <label>项目名称：</label>
+                        <div class="kv-item-content">
+                            <input id="tbName" type="text" placeholder="项目名称" field="title" />
+                        </div>
+                    </div>
+                    <div class="kv-item clearfix">
+                        <label>当前状态：</label>
+                        <div class="kv-item-content">
+                            <select id="tbStatus" field="status">
+                                <option value="">——全部——</option>
+                                <option value="0">待发布</option>
+                                <option value="1">已发布</option>
+                                <option value="2">下架</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="kv-item clearfix">
+                        <label>项目评级：</label>
+                        <div class="kv-item-content">
+                            <select id="tbStar" field="star">
+                                <option value="">——全部——</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="kv-item clearfix">
+                        <label>首页推荐：</label>
+                        <div class="kv-item-content">
+                            <select id="tbIsRecommend" field="recommend">
+                                <option value="">——全部——</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <a href="javascript:;" class="sapar-btn sapar-btn-recom query-btn">查询</a>
+                    <a href="javascript:;" class="sapar-btn sapar-btn-recom reset-btn">重置</a>
+                </div>
+
+
+                <!--表格开始-->
+                <div class="table">
+                    <!--表格操作-->
+                    <div class="table-operate ue-clear">
+                        <a id="btnAdd" href="javascript:;" class="add">发布项目</a>
+                        <!-- <a id="btnExportExcel" href="javascript:;" class="check">导出excel</a> -->
+                    </div>
+                    <!--表格具体内容-->
+                    <div class="table-box" style="overflow:auto;">
+                        <table id="table" class="table table-bordered" style="table-layout:fixed;"></table>
+                    </div>
+                </div><!--表格结束-->
+                <!--分页开始-->
+                <div id="pagin" class="pagination"></div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    // $('select').iSelect();
+</script>
+</html>

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <link href="/statics/umeditor/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+    <script src="/statics/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="js/user_cash_add.js"></script>
+    <style>
+        .kv-item {
+            margin: 10px 0;
+            float: left;
+            font-size: 14px;
+        }
+
+        .kv-item label {
+            padding-left: 40px;
+        }
+
+        .table-box {
+            overflow: auto;
+        }
+
+        .table tbody tr td {
+            white-space: normal;
+        }
+
+        .foot-botton {
+            text-align: center;
+        }
+
+        .foot-btn {
+            padding: 8px 20px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 14px;
+            height: 31px;
+            line-height: 31px;
+            border: 1px solid #6AB96E;
+            text-decoration: none;
+            color: #FFF;
+            background: none repeat scroll 0% 0% #6AB96E;
+        }
+
+        .foot-btn:hover {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        #btnClose {
+            margin-left: 20px;
+            border: 1px solid #cccccc;
+            background: none repeat scroll 0% 0% #cccccc;
+        }
+
+        .tab-container {
+            height: 230px;
+        }
+
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <title>提现审核</title>
+</head>
+
+<body style="overflow:hidden">
+    <div id="saper-container">
+        <div id="saper-bd">
+            <div id="tbForm" class="subfiled-content">
+                <div class="tab-container">
+                    <div class="kv-item clearfix">
+                        <label>审核状态：</label>
+                        <div class="kv-item-content">
+                            <select field="checkStatus">
+                                <option value="1">通过</option>
+                                <option value="2">不通过</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="kv-item clearfix">
+                        <label>审核意见：</label>
+                        <div class="kv-item-content">
+                            <textarea style="width: 440px; height: 140px;" placeholder="审核意见" field="checkReason"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+                    <a id="btnClose" href="javascript:;" class="foot-btn">取消</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    // $('select').iSelect();
+
+</script>
+
+</html>

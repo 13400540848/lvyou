@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <link rel="stylesheet" type="text/css" href="css/project_add.css" />
+    <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+    <script src="/statics/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="js/play_three_reward_add.js"></script>
+    <style>
+        .user-info{
+        margin:10px;
+        color: #333;
+        font-family: '微软雅黑';
+        font-size: 13px;
+        float: left;
+        width: 45%;
+    }
+    .user-info li{
+        padding: 10px 0;
+        /* border-bottom: 1px solid #ddd; */
+    }
+    .user-info li strong{
+        padding: 0 5px;
+        font-weight: bold;
+    }
+    .user-info li span{
+        padding: 0 5px;
+        color: #e30000;
+        font-weight: bold;
+    }
+    .table-box{
+        overflow: auto;
+    }
+    .table tbody tr td {
+        white-space: normal;
+    }
+    .user-info{
+        width:100%;
+    }
+    .foot-botton{
+        text-align: center;
+    }
+    .foot-btn {
+        padding: 8px 20px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #6AB96E;
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0% 0% #6AB96E;
+    }
+    .foot-btn:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #btnClose{
+        margin-left: 20px;
+        border: 1px solid #cccccc;
+        background: none repeat scroll 0% 0% #cccccc;
+    }
+</style>
+    <title>奖项添加/修改</title>
+</head>
+
+<body style="overflow:hidden">
+    <div id="saper-container">
+            <div class="subfiled-content" id="tbForm">
+                <ul class="user-info kv-item">
+                    <li>奖项名称： <input field="rewardName" required="required" type="text" placeholder="奖项名称" /><span class="impInfo">*</span></li>
+                    <li>奖项标识： <select field="rewardCode">
+                            <option value="3">和值3</option>
+                            <option value="4">和值4</option>
+                            <option value="5">和值5</option>
+                            <option value="6">和值6</option>
+                            <option value="7">和值7</option>
+                            <option value="8">和值8</option>
+                            <option value="9">和值9</option>
+                            <option value="10">和值10</option>
+                            <option value="11">和值11</option>
+                            <option value="12">和值12</option>
+                            <option value="13">和值13</option>
+                            <option value="14">和值14</option>
+                            <option value="15">和值15</option>
+                            <option value="16">和值16</option>
+                            <option value="17">和值17</option>
+                            <option value="18">和值18</option>
+                            <option value="20">二同号复选</option>
+                            <option value="21">二同号单选</option>
+                            <option value="22">二不同号</option>
+                            <option value="30">三同号通选</option>
+                            <option value="31">三同号单选</option>
+                            <option value="32">三不同号</option>
+                            <option value="33">三连号通选</option>
+                        </select><span class="impInfo">*</span></li>
+                    <li>奖励倍数：  <input field="rewardTimes" required="required" type="text" value="0" placeholder="奖励倍数" /><span class="impInfo">*</span></li>
+                </ul>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+        <div class="foot-botton">
+            <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+            <a id="btnClose" href="javascript:;" class="foot-btn">取消</a>
+        </div>
+        
+    </div>
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

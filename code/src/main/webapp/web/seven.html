@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-幸运七个球</title>
+  <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+  <link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+  <link href="css/site.css" rel="stylesheet" type="text/css">
+  <link href="css/seven.css" rel="stylesheet" type="text/css">
+  <style>
+    .content{
+      display: inline-block;
+      width: 100%;      
+    }
+    .portfolio_title {
+      height: 90px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .play-content {
+      width: 1020px;
+      margin: 0 auto;
+    }
+    .notice {
+      width: 1020px;
+      border-radius: 4px;
+      background-color: #FFFDE6;
+      font-size: 16px;
+      line-height: 64px;
+      height: 64px;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      margin-left: -510px;
+      z-index: 100;
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid #FFEDD3;
+    }
+    .notice .icon {
+        position: absolute;
+        top: 15px;
+        left: -10px;
+        width: 32px;
+        height: 32px;
+        background: url(images/notice.png) no-repeat;
+    }
+    .notice .body {
+      display: block;
+      margin: 0 40px;
+      overflow: hidden;
+      height: 40px;
+    }
+    .notice a, .notice a:hover, .notice a:active{
+      color: #ba2636;
+    }
+    a {
+      color: #333;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #777;
+    }
+    a:active, a:hover {
+      outline: 0;
+    }
+    .seven-logo{
+      background: url(images/seven.png) no-repeat;
+      background-size: 100% 100%;
+      margin: 0 auto;
+    }
+    .layui-body {
+      margin-top: 20px;
+    }
+    .asideBox {
+      padding: 10px 0 0 0;
+      float: right;
+      line-height: 21px;
+      font-family: simsun;
+      border-left: 1px solid #e3e3e3;
+      margin-left: 20px;
+      background-color: #c3c5ca;
+    }
+    .asideBox-item {
+      color: #717171;
+      padding-bottom: 10px;
+      padding: 0 13px 10px 14px;
+    }
+    </style>
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="layui-header"></div>
+    <section class="content">
+      <div class="portfolio_title">
+        <div id="seven_notice" class="notice">
+          <span class="icon"></span>
+          <div class="body"></div>
+        </div>
+    </section>
+    <div class="layui-body">
+      <div class="play-content">
+        <header class="game_header clearfix">
+          <div class="game_logo">
+            <h1 class="cz_logo gxkuai3"></h1>
+            <p class="game_intro"><span id="current_playRate">10分钟一期</span></p>
+          </div>
+          <div class="betting_countDown" id="countDownLeft">
+            <p class="bet_period">距 <em id="current_time1" class="c_ba2636">20181208001</em> 期参与截止还有：</p>
+            <p class="countDownBox"><span id="wait_timedown">00:00:00</span></p>
+            <p class="intro">今天已开 <span id="wait_open">78</span> 期，还剩 <em id="wait_leave">0</em> 期</p>
+            <div class="tgTextWrap clearfix">
+              <ul>
+              </ul>
+            </div>
+          </div>
+          <div class="awardBox">
+            <div style="display:block;" id="countDownRight1">
+              <p class="bet_period">第 <em id="front_time1" class="c_ba2636">20180101001</em> 期开奖号码：</p>
+              <div class="orangeBallBox" style="width:236px;padding-right:0;padding-left: 70px;margin-top: 20px;">
+                <ul class="clearfix">
+                  <li>
+                    <a id="front_six1" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front_six2" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front_six3" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front_six4" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front_six5" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front_six6" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="greenBallBox" style="width:40px;margin-top: 20px;">
+                <ul class="clearfix">
+                  <li>
+                    <a id="front_one" href="javascript:;" class="js_ball got active">11</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div style="display:none;" id="countDownRight2">
+              <p class="prePeriod"><span>
+                  第 <span id="front_time2">20180101001</span> 期开奖号码：</span>
+                <span class="currenAward">
+                  <em id="front2_six1" class="smallOrangeball">01</em>
+                  <em id="front2_six2" class="smallOrangeball">01</em>
+                  <em id="front2_six3" class="smallOrangeball">01</em>
+                  <em id="front2_six4" class="smallOrangeball">01</em>
+                  <em id="front2_six5" class="smallOrangeball">01</em>
+                  <em id="front2_six6" class="smallOrangeball">01</em>
+                  <em id="front2_one" class="smallGreenball">01</em>
+                </span>
+              </p>
+              <p class="bet_period">第 <em id="current_time2" class="c_ba2636">20181208029</em> 期等待开奖：</p>
+              <p class="award_countDown"><i class="icon_time"></i><span id="wait_timedown1" name="awardTimer">01:07</span></p>
+            </div>
+            <div style="display:none;" id="countDownRight3">
+              <p class="bet_period">第 <em id="current_time3" class="c_ba2636">20181208026</em> 期开奖中：</p>
+              <div class="orangeBallBox" style="width:236px;padding-right:0;padding-left: 60px;margin-top: 20px;">
+                <ul class="clearfix">
+                  <li>
+                    <a id="front3_six1" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front3_six2" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front3_six3" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front3_six4" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front3_six5" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                  <li>
+                    <a id="front3_six6" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="greenBallBox" style="width:40px;margin-top: 20px;">
+                <ul class="clearfix">
+                  <li>
+                    <a id="front3_one" href="javascript:;" class="js_ball got active">01</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- <p class="kjing">开奖中…</p> -->
+            </div>
+            <div id="trendLinks">
+              奖池累计：<span id="info_allmoney" class="totalPool">0</span>
+            </div>
+            <div class="show_moreAwards" id="awardListBtn">查看更多开奖号码 <i class="openDetail"></i></div>
+          </div>
+        </header>
+        <section id="awardList" class="awardList hide">
+          <div>
+            <table class="awardList_table">
+              <colgroup>
+                <col width="20%">
+                <col width="40%">
+                <!-- <col width="10%"> -->
+                <col width="20%">
+                <col width="20%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>期号</th>
+                  <th>开奖号码</th>
+                  <!-- <th>参与数量</th> -->
+                  <th>截止时间</th>
+                  <th>开奖时间</th>
+                </tr>
+              </thead>
+              <tbody id="moreAward">
+              </tbody>
+            </table>
+        </section>
+        <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
+          <ul class="layui-tab-title" id="tabMenu">
+            <li class="layui-this" id="liSelectNumber">选号</li>
+            <li class="">走势图</li>
+            <li class="">历史开奖查询</li>
+            <li class="" id="liLog">参与记录</li>
+          </ul>
+          <ul class="moreLink">
+            <!-- <li><a target="_blank" href="threelog.html"><i class="trend_icon"></i>走势图</a></li> -->
+            <li><a id="gamePlayUrl" href="#awardTableInfo"><i class="gameIntru_icon"></i>玩法说明</a></li>
+            <li><a href="javascript:void(0);"><i class="gameIntru_icon"></i>参与图解</a></li>            
+          </ul>
+          <ul id="moreLinkRight" class="moreLinkRight">销售时间：每天9:28~22:28销售</ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+              <section class="bettingBox" style="text-align: center;">
+                <div id="mainPanels" class="newbieGuideStep1">
+                  <div class="selectNum cleafix">
+                    <div class="title">
+                      <h2 class="orangeTitle"><strong>橘球区</strong> <span>至少选择6个橘球</span></h2>
+                      <h2 class="greenTitle"><strong>绿球区</strong> <span>至少选择1个绿球</span></h2>
+                    </div>
+                    <div id="statisticsWrap" class="hide showHotCold"></div>
+                    <div class="ballarea clearfix">
+                      <div id="areaOrangeBall" class="orangeBallBox">
+                        <ul class="clearfix">
+                          <li>
+                            <a href="javascript:;" class="js_ball">01</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">02</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">03</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">04</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">05</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">06</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">07</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">08</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">09</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">10</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">11</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">12</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">13</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">14</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">15</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">16</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">17</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">18</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">19</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">20</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">21</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">22</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">23</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">24</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">25</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">26</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">27</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">28</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">29</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">30</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">31</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">32</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">33</a>
+                          </li>
+                        </ul>
+                        <p class="random_selection">
+                          <button class="layui-btn layui-btn-sm layui-btn-warm" title="连续点击将获取不同的橘球" id="randomOrangeBall">机选橘球</button>
+                          <button class="layui-btn layui-btn-primary layui-btn-sm" id="clearOrangeBall">清空</button>
+                        </p>
+                      </div>
+                      <div id="areaGreenBall" class="greenBallBox">
+                        <ul class="clearfix">
+                          <li>
+                            <a href="javascript:;" class="js_ball">01</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">02</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">03</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">04</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">05</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">06</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">07</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">08</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">09</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">10</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">11</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">12</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">13</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">14</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">15</a>
+                          </li>
+                          <li>
+                            <a href="javascript:;" class="js_ball">16</a>
+                          </li>
+                        </ul>
+                        <p class="random_selection">
+                          <button class="layui-btn layui-btn-sm" title="连续点击将获取不同的绿球" id="randomGreenBall">机选绿球</button>
+                          <button class="layui-btn layui-btn-primary layui-btn-sm" id="clearGreenBall">清空</button>
+                        </p>
+                      </div>
+                      <p class="selectInfo">
+                        <span>您当前选中了<strong id="countOrange" class="select_orange">0</strong>个橘球，<strong id="countGreen"
+                            class="select_green">0</strong>个绿球，
+                          共<strong id="countSum" class="select_count">0</strong>注，共<strong id="countMoney" class="select_money">0</strong>DG</span><i></i></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="betbtnBox newbieGuideStep2">
+                  <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                </div>
+                <div class="newbieGuideStep3">
+                  <div class="selected_box clearfix">
+                    <div id="select_list_box" class="selected_list">
+                      <dl>
+                        <table class="layui-hide" id="dg" lay-filter="dg"></table>
+                        <script type="text/html" id="bar">
+                                <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">修改</a> -->
+                                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="delete">删除</a>
+                            </script>
+                      </dl>
+                    </div>
+                    <div class="selected_btnbox">
+                      <button class="layui-btn layui-btn-sm layui-btn-normal" style="width:105px;" id="randomOneBall">机选1注</button>
+                      <div class="randomBtn">
+                        <input type="text" name="title" lay-verify="title" style="width:50px;height: 30px;"
+                          autocomplete="off" placeholder="5注" class="layui-input" id="txtNumberBall" />
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" id="randomNumberBall">机选</button>
+                      </div>
+                      <button class="layui-btn layui-btn-primary layui-btn-sm" style="width:105px;" id="clearAllBall">清空列表</button><br /><br />
+                      <button class="layui-btn layui-btn-danger" style="width:105px;" id="submitBall">确认参与</button>
+                    </div>
+                  </div>
+                  <div class="betresult">
+                    共<strong id="countAllSum" class="select_count">0</strong>注，
+                    我要买<span class="addSubtract">
+                      <a href="javascript:;" rel="nofollow" hidefocus="true" class="subtract subtractDisable"></a>
+                      <input type="text" value="1">
+                      <a href="javascript:;" rel="nofollow" hidefocus="true" class="add"></a>
+                    </span>倍，
+                    共<strong id="countAllMoney" class="select_money">0</strong>DG</span>
+                  </div>
+                </div>
+                <!-- 今日开奖号码 -->
+                <div class="bottomBox" id="todayKaiJiang">
+                  <h3><strong>今日开奖号码</strong><span class="more"><em>收起</em><b>展开</b><i class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div class="helpContent">
+                    <table class="winnerNum_table" id="j-todayNumTable">
+                      <thead>
+                        <tr>
+                          <th width="5%" class="period">期号</th>
+                          <th width="20%">开奖号码</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="20%">开奖号码</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="20%">开奖号码</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="20%">开奖号码</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- 今日开奖号码 -->
+
+                <!-- 法律说明 -->
+                <div class="bottomBox" id="warmTip">
+                  <h3><strong>法律说明</strong><span class="more"><em>收起</em><b>展开</b><i
+                        class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div id="gameIntro_con" class="gameintro_com helpContent">
+                    <div class="intrDetail helpContent">
+                      <p><strong>1.限号风险提示：</strong></p>
+                      <p>在当期销售过程中，当参与号码未达到当前允许销售的最大参与数额时，各限号参与方式按实际销售的参与数额实时从福彩中心数据库限号池获取参与许可；若参与号码达到当前允许销售的最大参与数额，则限号池停止向各限号参与方式分配该参与号码的许可。</p>
+                      <p class="c_ba2636">按各参与方法不同设定最大赔付量。该参与方法最大参与注数=（该参与方法销量*0.59+该参与方法最大赔付量）/单注奖金，当该参与方法达到最大参与注数量时，出现限号。不同参与方式风险控制量不同，单种参与方式的最大赔付量是50万DG，单期最大返奖额可超过300万DG！</p>
+                      <p>动态实时限制是指在销售过程中，随着销量的增长，每种参与方式的即时允许销售注数，动态实时限制随着该参与方式销售总额的变化，按规定的算法进行动态计算并加以限制的过程。</p>
+                      <p class="c_ba2636">在当期销售过程中，当所选参与号码参与注数未超过当前动态实时限制注数时，该参与视为有效参与；若所选参与号码参与注数已超过当前动态实时限制注数，则视为无效参与，此时销售终端不接受该参与的申请。</p>
+                      <p><strong>2.追号异常处理流程：</strong></p>
+                      <p>由于官方开奖延迟或网络故障导致的用户追号方案未能按照用户要求中奖停止，由此产生的未停止期次参与损失，将由网易彩票于异常发生的第二个工作日，向用户补偿追号参与损失差额。</p>
+                      <p>追号补偿参与损失差额=<strong>中奖期次后</strong>产生的全部参与成功金额-<strong>中奖期次后</strong>产生的奖金金额</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 法律说明 -->
+                
+                <!-- 奖金计算方法 -->
+                <div class="bottomBox" id="awardTableInfo">
+                  <h3><strong>奖金计算方法</strong><span class="more"><em>收起</em><b>展开</b><i class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div class="helpContent">
+                    <table id="gameAwardIntro_con" class="prizeIntro_table">
+                      <thead>
+                        <tr>
+                          <th width="20%">奖项</th>
+                          <th>&nbsp;&nbsp;中奖条件</th>
+                          <th width="15%">中奖说明</th>
+                          <th width="20%">单住奖金分配</th>
+                          <th width="15%">收益倍数</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>一等奖</td>
+                          <td><span class="currenAward">
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallOrangeball"> </em>
+                            <em class="smallGreenball"> </em></span></td>
+                          <td>中 6+1</td>
+                          <td id="awardDG1"></td>
+                          <td id="awardBS1"></td>
+                        </tr>
+                        <tr>
+                          <td>二等奖</td>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em></span></td>
+                          <td>中 6+0</td>
+                          <td id="awardDG2"></td>
+                          <td id="awardBS2"></td>
+                        </tr>
+                        <tr>
+                          <td>三等奖</td>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallGreenball"> </em></span></td>
+                          <td>中 5+1</td>
+                          <td id="awardDG3"></td>
+                          <td id="awardBS3"></td>
+                        </tr>
+                        <tr>
+                          <td rowspan="2">四等奖</td>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em></span></td>
+                          <td>中 5+0</td>
+                          <td rowspan="2" id="awardDG4"></td>
+                          <td rowspan="2" id="awardBS4"></td>
+                        </tr>
+                        <tr>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallGreenball"> </em></span></td>
+                          <td>中 4+1</td>
+                        </tr>
+                        <tr>
+                          <td rowspan="2">五等奖</td>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em></span></td>
+                          <td>中 4+0</td>
+                          <td rowspan="2" id="awardDG5"></td>
+                          <td rowspan="2" id="awardBS5"></td>
+                        </tr>
+                        <tr>
+                            <td><span class="currenAward">
+                                <em class="smallOrangeball"> </em><em class="smallOrangeball"> </em><em class="smallOrangeball"> </em>
+                                <em class="smallGreenball"> </em></span></td>
+                            <td>中 3+1</td>
+                          </tr>
+                        <tr>
+                          <td rowspan="3">六等奖</td>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallGreenball"> </em></span></td>
+                          <td>中 2+1</td>
+                          <td rowspan="3" id="awardDG6"></td>
+                          <td rowspan="3" id="awardBS6"></td>
+                        </tr>
+                        <tr>
+                          <td><span class="currenAward">
+                              <em class="smallOrangeball"> </em>
+                              <em class="smallGreenball"> </em></span></td>
+                          <td>中 1+1</td>
+                        </tr>
+                        <tr>
+                          <td><span class="currenAward">
+                              <em class="smallGreenball"> </em></span></td>
+                          <td>中 0+1</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- 奖金计算方法-->
+              </section>
+
+            </div>
+            <div class="layui-tab-item" id="tabBodyResultLog">
+              <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                <div class="layui-inline" style="width: 150px;">
+                    <input type="text" class="layui-input" id="tbResultLogDate" />
+                </div>
+                <button class="layui-btn layui-btn-normal" id="btnSearchResultLog">搜索</button>
+              </div>
+              <table class="layui-hide" id="dgResultLog"></table>
+            </div>
+            <div class="layui-tab-item" id="tabBodyResultHistory">
+                <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                  <div class="layui-inline" style="width: 150px;">
+                      <input type="text" class="layui-input" id="tbResultHistoryDate" />
+                  </div>
+                  <button class="layui-btn layui-btn-normal" id="btnSearchResultHistory">搜索</button>
+                </div>
+                <table class="winnerNum_table" id="resultHistoryTable">
+                  <thead>
+                    <tr>
+                      <th width="5%" class="period">期号</th>
+                      <th width="20%">开奖号码</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="20%">开奖号码</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="20%">开奖号码</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="20%">开奖号码</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+            </div>
+            <div class="layui-tab-item" id="tabBodyUserLog">
+              <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                <div class="layui-inline" style="width: 150px;">
+                  <select id="comboUserLogStatus" name="comboUserLogStatus">
+                    <option value="">——全部——</option>
+                    <option value="1">中奖</option>
+                    <option value="-1">未中奖</option>
+                    <option value="0">待开奖</option>
+                  </select>
+                </div>
+                <button class="layui-btn layui-btn-normal" id="btnSearchUserLog">搜索</button>
+              </div>
+              <table class="layui-hide" id="dgUserLog"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-bottom"></div>
+  </div>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+  <script type="text/javascript" src="/statics/layui/layui.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/include.js"></script>
+  <script type="text/javascript" src="js/seven.js"></script>
+</body>
+
+</html>

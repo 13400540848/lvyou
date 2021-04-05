@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- 指明满足“/*”的页面，将被“/WEB-INF/decorator/decorator.jsp”所装饰 -->
+    <mapping path="/*" decorator="/WEB-INF/decorator/main.jsp">
+    </mapping>
+    <mapping path="/indite*" decorator="/WEB-INF/decorator/main-notbar.jsp">
+    </mapping>
+    <mapping path="/editor*" decorator="/WEB-INF/decorator/main-notbar.jsp">
+    </mapping>
+    
+    <mapping path="/admin/*" exclue="true"/>
+    <mapping path="/adminweb/*" exclue="true"/>
+    <mapping path="/web/*" exclue="true"/>
+    <mapping path="/statics/*" exclue="true"/>
+    <mapping path="/**/imageUp.jsp" exclue="true" />
+    <mapping path="/v0.1/*" exclue="true" />
+    <mapping path="/vshop*" exclue="true"/>
+</sitemesh>

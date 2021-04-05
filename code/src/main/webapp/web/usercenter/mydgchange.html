@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>DG兑换</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .layui-table-cell{
+        height: 31px;
+        line-height: 31px;
+      }
+    .layui-tab-brief>.layui-tab-title .layui-this{
+      color: #3b85c8;
+    }
+    .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+      border-bottom: 2px solid #3b85c8;
+    }
+    </style>
+</head>
+
+<body>
+
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>DG兑换</legend>
+  </fieldset>
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li class="layui-this">DG兑换</li>
+      <li class="">兑换记录</li>
+    </ul>
+    <div class="layui-tab-content" style="height: 100px;">
+      <div class="layui-tab-item layui-show">
+        <table class="layui-hide" id="dg1" lay-filter="dg1"></table>
+        <!-- <script type="text/html" id="bar1">
+          {{#  if(d.money > 0){ }}
+            <a class="layui-btn layui-btn-sm" lay-event="change">兑换</a>
+          {{#  } else { }}
+            <a class="layui-btn layui-btn-sm layui-btn-disabled">兑换</a>
+          {{#  } }}  
+        </script> -->
+        <script type="text/html" id="bar1">
+            <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="change">兑换</a>
+        </script>
+      </div>
+      <div class="layui-tab-item">
+        <table class="layui-hide" id="dg2"></table>
+        <script type="text/html" id="bar2">
+          {{#  if(d.checkStatus == 0){ }}
+            提交成功
+          {{#  } else if(d.checkStatus == 1){ }}
+            <span style="color:green;">提现成功</span>
+          {{#  } else if(d.checkStatus == 2){ }}
+          <span style="color:red;">提现失败</span>
+          {{#  } }}  
+        </script>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+  <script type="text/javascript" src="../js/utils.js"></script>
+  <script>
+    var model = null;
+    layui.use(['table', 'element', 'form'], function () {
+      var table = layui.table, element = layui.element, form = layui.form;
+
+      DataUtils.getUserMoneyList(function (data) {
+        var data1 = [];
+        if (data && data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            if (item.moneyType) {
+              switch (item.moneyType.typeMode) {
+                case 0:
+                  data1.push(item);
+                  break;
+              }
+            }
+          }
+        }
+        table.render({
+          elem: '#dg1',
+          cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+          cols: [[
+            { field: 'typeName', title: '币种' },
+            {
+              field: 'money', title: '剩余数量', templet: function (d) {
+                if (d.money > 0) {
+                  return '<span style="color:red;">' + d.money + '</span>';
+                } else {
+                  return '<span style="color:green;">' + d.money + '</span>';
+                }
+              }
+            },
+            { fixed: 'right', title: '操作', toolbar: '#bar1', width: 150 }
+          ]],
+          even: true,
+          data: data1
+        });
+      });
+
+      //监听行工具事件
+      table.on('tool(dg1)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'change') {
+          model = data;
+          var t = new Date().getTime();
+          layer.open({
+            type: 2
+            , title: 'DG兑换'
+            , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+            , area: ['500px', '490px']
+            , id: 'layerDemo' //防止重复弹出
+            , content: 'mydgchangeadd.html?t=' + t + '&id=' + data.id
+            , shade: 0.2 //不显示遮罩
+            , yes: function () {
+              layer.closeAll();
+            }
+          });
+        }
+      });
+
+      table.render({
+        elem: '#dg2',
+        url: Config.WEB_SERVER_API + Config.URI.USER_MONEY_CHANGE_LIST,
+        request: {
+          pageName: 'offset' //页码的参数名称，默认：page
+          , limitName: 'limit' //每页数据量的参数名，默认：limit
+        },
+        cellMinWidth: 60, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        cols: [[
+          { field: 'id', title: 'ID', hide: true }
+          , { field: 'fromTypeName', title: '兑换类型', width: 170, templet: function (d) { return d.fromTypeName + ' > ' + d.toTypeName; } }
+          , { field: 'fromMoney', title: '兑换数量', width: 170, templet: function (d) { return '<span style="color:green;">' + d.fromMoney + '</span> > <span style="color:red;">' + d.toMoney + '</span>'; } }
+          , { field: 'brokeMoney', title: '手续费', width: 100, templet: function (d) { return '<span style="color:green;">' + d.brokeMoney + '</span>'; } }
+          , { field: 'realMoney', title: '到账数量', width: 100, templet: function (d) { return '<span style="color:red;">' + d.realMoney + '</span>'; } }
+          , { field: 'createTime', title: '兑换时间', width: 173, templet: function (d) { return FormatUtils.parseTimestampToDateTime(d.createTime); } }
+        ]]
+        , page: true, loading: true,
+        response: {
+          statusCode: "200" //重新规定成功的状态码为 200，table 组件默认为 0
+        },
+        parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+          return {
+            "code": parseInt(res.resultCode), //解析接口状态
+            "msg": res.resultMsg, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.rows //解析数据列表
+          };
+        }
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

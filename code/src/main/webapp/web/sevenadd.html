@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>我要参与</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .validate{
+        position:absolute;
+        left:110px;
+        top:3px;
+      }
+    </style>
+</head>
+
+<body>
+  <blockquote class="layui-elem-quote">
+    1、您共参与 <span id="tipCount" style="color:green">0</span> 注，共 <span id="tipMoney" style="color:red">0</span> DG！<br />
+    2、您的余额 <span id="tipUserMoney" style="color:green">0</span> DG！
+  </blockquote>
+  <br />
+  <form class="layui-form" action="">
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 交易密码</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="password" id="dealPassword" name="dealPassword" lay-verify="required|pass" placeholder="请输入交易密码"
+            autocomplete="off" class="layui-input" maxlength="6" />
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item" id="itemValidate">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 验证码</label>
+        <div class="layui-input-inline" style="width: 300px;">
+          <input id="validateCode" type="text" name="validateCode" lay-verify="required" autocomplete="off" class="layui-input"
+            style="width:100px;" />
+          <div class="validate">
+            <a href="javascript:void(0);" onclick="CreateVerificationCode()" title="点击刷新验证码"><img id="randCodeImage"
+                style="border:0px;" maxlength="4" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <br />
+        <button class="layui-btn" lay-submit="" lay-filter="demo1">确认参与</button>
+      </div>
+    </div>
+  </form>
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+
+  <script>
+    var model = null, lock = false;
+    $(function () {
+      if (!parent || !parent.PlaySeven || !parent.PlaySeven.SelectBallData || parent.PlaySeven.SelectBallData.length <= 0) {
+        window.top.location = 'usercenter.html';
+        return;
+      }
+      var count = Utils.getUrlParam("count") || "0";
+      var money = Utils.getUrlParam("money") || "0";
+      $("#tipCount").text(count);
+      $("#tipMoney").text(money);
+      DataUtils.getUserMoneyList2(function (data) {
+        if (!data || data.money < parseFloat(money)) {
+          layer.alert('余额不足，请您先充值！', { title: '出错了', icon: 5 });
+          window.top.location = 'usercenter.html';
+        } else {
+          $("#tipUserMoney").text(data.money);
+        }
+      });
+
+      layui.use(['form'], function () {
+        var form = layui.form, layer = layui.layer;
+
+        CreateVerificationCode();
+
+        //自定义验证规则
+        form.verify({
+          pass: [/(.+){6,12}$/, '密码必须6到12位']
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+          var json = data.field;
+          json.data = parent.PlaySeven.SelectBallData;
+          layer.confirm('确定要参与投注吗?', { icon: 3, title: '提示' }, function (index) {
+            UIUtils.loading("投注中，请稍后……");
+            var url = Config.WEB_SERVER_API + Config.URI.USER_PLAY_SEVEN_SAVE;
+            HttpUtils.httpPost(url, json, function (result, success) {
+              UIUtils.loaded();
+              if (success) {
+                layer.alert('投注成功，等待系统开奖！', { title: '投注成功' }, function (index) {
+                  window.parent.location.reload();
+                });
+              } else {
+                layer.alert(result.resultMsg, { title: '出错了', icon: 5 });
+              }
+            });
+            layer.close(index);
+          });
+          return false;
+        });
+      });
+    });
+
+    function CreateVerificationCode() {
+      var rad = Math.floor(Math.random() * Math.pow(10, 8));
+      //uuuy是随便写的一个参数名称，后端不会做处理，作用是避免浏览器读取缓存的链接
+      $("#randCodeImage").attr("src", Config.WEB_SERVER_API + Config.URI.VERIFICATION_CODE + "?uuuy=" + rad);
+    }
+
+
+  </script>
+
+</body>
+
+</html>

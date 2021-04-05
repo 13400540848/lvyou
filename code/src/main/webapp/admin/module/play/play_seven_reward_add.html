@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <link rel="stylesheet" type="text/css" href="css/project_add.css" />
+    <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+    <script src="/statics/layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="../../js/WdatePicker.js"></script>
+    <script type="text/javascript" src="js/play_seven_reward_add.js"></script>
+    <style>
+        .kv-item {
+        margin: 10px 0;
+        float: left;
+        font-size: 14px;
+    }
+    .kv-item label{
+        padding-left:10px;
+    }
+    .foot-botton{
+        text-align: center;
+    }
+    .foot-btn {
+        padding: 8px 20px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #6AB96E;
+        text-decoration: none;
+        color: #FFF;
+        background: none repeat scroll 0% 0% #6AB96E;
+    }
+    .foot-btn:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #btnClose{
+        margin-left: 20px;
+        border: 1px solid #cccccc;
+        background: none repeat scroll 0% 0% #cccccc;
+    }
+    .tab-content{
+        height: 150px;
+    }
+</style>
+    <title>奖项添加/修改</title>
+</head>
+
+<body style="overflow:hidden">
+    <div id="saper-container">
+        <div id="saper-bd">
+            <div class="subfiled-content">
+                <div class="tab-container" data-trigger="click">
+                    <div class="tab">
+                        <a href="javascript:;" class="current">基本信息</a>
+                        <a href="javascript:;">固定金额</a>
+                        <a href="javascript:;">浮动金额</a>
+                    </div>
+                    <div class="tab-content" id="tbForm">
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>奖项名称：</label>
+                                <div class="kv-item-content">
+                                    <input field="rewardName" required="required" type="text" placeholder="奖项名称" /><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>奖项标识：</label>
+                                <div class="kv-item-content">
+                                    <select field="rewardCode">
+                                        <option value="1">一等奖</option>
+                                        <option value="2">二等奖</option>
+                                        <option value="3">三等奖</option>
+                                        <option value="4">四等奖</option>
+                                        <option value="5">五等奖</option>
+                                        <option value="6">六等奖</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>奖励类型：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbMode" field="rewardMode">
+                                        <option value="0">固定金额</option>
+                                        <option value="1">浮动金额</option>
+                                    </select><span class="impInfo">*</span>
+                                </div>
+                            </div>                 
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>奖励倍数：</label>
+                                <div class="kv-item-content">
+                                    <input field="rewardTimes" required="required" type="text" value="0"
+                                        placeholder="奖励倍数" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content-item" style="display: block;">
+                            <div class="kv-item clearfix">
+                                <label>浮动奖金百分比：</label>
+                                <div class="kv-item-content">
+                                    <input field="rewardPercent" type="text" value="0" placeholder="浮动奖金百分比" />%
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>封顶金额：</label>
+                                <div class="kv-item-content">
+                                    <input field="maxMoney" type="text" value="0" placeholder="封顶金额" />DG
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>要求奖池数量：</label>
+                                <div class="kv-item-content">
+                                    <input field="requireMoney" type="text" value="0" placeholder="要求奖池数量" />DG
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+                    <a id="btnClose" href="javascript:;" class="foot-btn">取消</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

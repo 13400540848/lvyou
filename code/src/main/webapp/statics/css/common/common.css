@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { font-size:14px; color:#2b2b2b; font-family: Helvetica,Verdana,Arial,sans-serif;
+background:#f5f5d5;
+background-repeat: repeat-x;
+/*background-position:0px 90px; */ }
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0; list-style:none;}
+img { border:none;}
+a { text-decoration:none; color:#252525;}
+a:hover { text-decoration:underline; color:#d00005;}
+
+h5 { font-weight:normal;}
+h5 em { font-style:normal; color:#93090F; margin:0 5px; display:inline-block;}
+h5 em a { color:#93090F; margin:0 2px;}
+
+.background-66CC66{
+  background:#66CC66;
+}
+
+.x-box{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #917347;
+    border-color: #917347;
+    z-index:1031;
+}
+
+

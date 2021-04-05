@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <title>管理员初始化</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: Config.WEB_SERVER_API + "init",
+            type: 'GET',
+            async: false,
+            data: {},
+            success: function (data) {
+                if (!data) {
+                    alert("返回数据为空！");
+                    return;
+                }
+                if (data.resultCode == 200) {
+                    alert("初始化成功！");
+                    return;
+                }
+                alert("返回失败：" +data.resultMsg);
+            },
+            error: function (xhr, type, errorThrown) {
+                console.log(xhr);
+                alert("初始化失败！")
+            }
+        });
+    });
+</script>
+</html>

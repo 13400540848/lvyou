@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-项目支持</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .validate{
+      position:absolute;
+      left:110px;
+      top:3px;
+    }
+    </style>
+</head>
+
+<body>
+  <blockquote class="layui-elem-quote">
+    支持币种： <span id="spanTypeName" class="layui-badge layui-bg-orange"></span> &nbsp;
+    我的余额： <span id="spanUserMoney" class="layui-badge layui-bg-green"></span><br />
+    剩余数量： <span id="spanLeaveMoney" class="layui-badge layui-bg-blue"></span> &nbsp;
+    手续费： <span id="spanBrokePercent" class="layui-badge"></span> &nbsp;
+  </blockquote>
+  <form class="layui-form" action="" lay-filter="form">
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 支持数量</label>
+        <div class="layui-input-inline" style="width: 100px;">
+          <input id="money" type="text" name="money" value="1" lay-verify="required" lay-verify="required|number"
+            autocomplete="off" class="layui-input" maxlength="10" />
+        </div>
+        <div style=" position: absolute; left :220px; top: 2px; line-height: 35px;">
+          <span id="spanLimit">1-50</span>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item" id="itemValidate">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 验证码</label>
+        <div class="layui-input-inline" style="width: 300px;">
+          <input id="validateCode" type="text" name="validateCode" lay-verify="required" placeholder="请输入验证码"
+            autocomplete="off" class="layui-input" style="width:100px;" maxlength="4" />
+          <div class="validate">
+            <a href="javascript:void(0);" onclick="CreateVerificationCode()" title="点击刷新验证码"><img id="randCodeImage"
+                style="border:0px;" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 交易密码</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="password" id="dealPassword" name="dealPassword" lay-verify="required" lay-verify="required|dealpass"
+            placeholder="请输入交易密码" autocomplete="off" class="layui-input" maxlength="6" />
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button id="btn_submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo" style="width:80px;">确定</button>
+      </div>
+    </div>
+  </form>
+
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script>
+    var model = null, typeModel = {};
+    $(function () {
+      ProjectBuyAdd.init();
+    });
+
+    var ProjectBuyAdd = {
+      "UserMoneyData": [],
+      "init": function () {
+        CreateVerificationCode();
+        if (parent && parent.model && parent.typeModel) {
+          model = parent.model;
+          typeModel = parent.typeModel;
+          this.initUserMoney(function () {
+            ProjectBuyAdd.initInfo();
+          });
+        }
+      },
+      "initInfo": function () {
+        $("#spanTypeName").text(typeModel.typeName);
+        $("#spanUserMoney").text(this.getUserMoney(typeModel.typeId));
+        $("#spanLimit").text('限制：' + typeModel.min + '-' + typeModel.max);
+        $("#spanBrokePercent").text(model.brokePercent + '%');
+        $("#spanLeaveMoney").text((typeModel.allMoney - typeModel.money));
+
+        layui.use(['form', 'layer', 'element'], function () {
+          var form = layui.form, layer = layui.layer;
+
+          //自定义验证规则
+          form.verify({
+            pass: [/(.+){6,12}$/, '密码必须6到12位'],
+            dealpass: [/^\d{6}$/, '交易密码必须6位数字']
+          });
+
+          //监听提交
+          form.on('submit(demo)', function (data) {
+            var json = data.field;
+            json.money = parseInt(json.money);
+            if (json.money <= 0 || json.money < typeModel.min || json.money > typeModel.max) {
+              layer.alert("支持数量错误（限制：" + typeModel.min + "-" + typeModel.max + "）！", { title: '出错了', icon: 5 });
+              return false;
+            }
+            var realMoney = json.money * model.brokePercent / 100;//实际
+            var leaveMoney = typeModel.allMoney - typeModel.money;//剩余
+            if (realMoney > leaveMoney) {
+              layer.alert("支持数量不能超过剩余可投数量 " + leaveMoney + "！", { title: '出错了', icon: 5 });
+              return false;
+            }
+            json.typeId = typeModel.typeId;
+            json.projectId = typeModel.projectId;
+            layer.confirm('确定支持 ' + json.money + ' (' + typeModel.typeName + ') 吗?', { icon: 3, title: '提示' }, function (index) {
+              DataUtils.buyProject(json, function (result, success) {
+                if (success) {
+                  layer.alert('支持成功，订单号 ' + result.resultMsg + '！', { title: '提示' }, function (index) {
+                    window.top.location.reload();
+                  });
+                } else {
+                  layer.alert(result.resultMsg, { title: '出错了', icon: 5 });
+                }
+              });
+              layer.close(index);
+            });            
+            return false;
+          });
+        });
+      },
+      "initUserMoney": function (callback) {
+        DataUtils.getUserMoneyList(function (data) {
+          ProjectBuyAdd.UserMoneyData = data;
+          if (callback) {
+            callback(data);
+          }
+        });
+      },
+      "getUserMoney": function (typeId) {
+        for (var i = 0; i < ProjectBuyAdd.UserMoneyData.length; i++) {
+          var item = ProjectBuyAdd.UserMoneyData[i];
+          if (item.typeId == typeId) {
+            return item.money;
+          }
+        }
+        return 0;
+      }
+    };
+    function CreateVerificationCode() {
+      var rad = Math.floor(Math.random() * Math.pow(10, 8));
+      //uuuy是随便写的一个参数名称，后端不会做处理，作用是避免浏览器读取缓存的链接
+      $("#randCodeImage").attr("src", Config.WEB_SERVER_API + Config.URI.VERIFICATION_CODE + "?uuuy=" + rad);
+    }
+  </script>
+
+</body>
+
+</html>

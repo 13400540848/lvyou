@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../css/sapar.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+	<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="../../js/sapar.js"></script>
+	<script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>
+	<script type="text/javascript" src="../../js/bootstrap/bootstrap-table.js"></script>
+	<script type="text/javascript" src="../../js/jquery/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../../js/config.js"></script>
+	<script type="text/javascript" src="../../js/utils.js"></script>
+	<script type="text/javascript" src="../../js/WdatePicker.js"></script>
+	<script type="text/javascript" src="js/user_reward_manage.js"></script>
+	<title>系统首页</title>
+	<style>
+		.kv-item {
+        margin: 10px 0;
+        float: left;
+        font-size: 14px;
+    }
+    .kv-item label{
+        padding-left:40px;
+    }
+    .table-box{
+        overflow: auto;
+    }
+    .table tbody tr td {
+        white-space: normal;
+    }
+    .tab-container{
+        height: 500px;
+    }
+	.subfiled-content {
+		padding: 10px 0 0 0;
+	}
+	.kv-item select {
+		width: 130px;
+	}
+	.iselect-wrapper{
+		width: 105px;
+	}
+	.search-box .kv-item{
+		float: left;
+	}
+	.search-box .kv-item input{
+		width: 130px;
+	}
+	.search-box .sapar-btn{
+		float: left;
+		margin-left: 20px;
+		padding: 0 20px;
+		margin-top: 10px;
+	}
+	.tab-container .tab-content{
+		padding:0px;
+	}
+</style>
+</head>
+
+<body>
+	<div id="saper-container">
+		<div id="saper-hd"></div>
+		<div id="saper-bd">
+			<div class="subfiled clearfix">
+				<h2>用户中奖查询</h2>
+			</div>
+			<div class="subfiled-content">
+				<div class="tab-container" data-trigger="click">
+					<div class="tab">
+						<a href="javascript:;" class="current">幸福七个球</a>
+						<a href="javascript:;">胖三</a>
+					</div>
+					<div class="tab-content">
+						<div class="tab-content-item" style="display: block;">
+							<div class="table">
+								<div class="search-box clearfix" id="tbQueryBody1">
+									<div class="kv-item clearfix">
+										<label>期号：</label>
+										<div class="kv-item-content">
+											<input type="text" placeholder="期号" field="playTime" />
+										</div>
+									</div>
+									<div class="kv-item clearfix">
+										<label>用户账号：</label>
+										<div class="kv-item-content">
+											<input type="text" placeholder="用户账号" field="userName" />
+										</div>
+									</div>									
+									<div class="kv-item clearfix">
+										<label>中奖状态：</label>
+										<div class="kv-item-content">
+											<select field="status">
+												<option value="">——全部——</option>
+												<option value="1">中奖</option>
+												<option value="-1">未中奖</option>
+												<option value="0">待开奖</option>
+											</select>
+										</div>
+									</div>
+									<a href="javascript:;" class="sapar-btn sapar-btn-recom query-btn1">查询</a>
+									<a href="javascript:;" class="sapar-btn sapar-btn-recom reset-btn1">重置</a>
+								</div>
+								<div class="table-box">
+									<table id="table1"></table>
+								</div>
+								<div id="pagin1" class="pagination"></div>
+							</div>
+						</div>
+						<div class="tab-content-item" style="display: block;">
+							<div class="table">
+								<div class="search-box clearfix" id="tbQueryBody2">
+									<div class="kv-item clearfix">
+										<label>期号：</label>
+										<div class="kv-item-content">
+											<input type="text" placeholder="期号" field="playTime" />
+										</div>
+									</div>
+									<div class="kv-item clearfix">
+										<label>用户账号：</label>
+										<div class="kv-item-content">
+											<input type="text" placeholder="用户账号" field="userName" />
+										</div>
+									</div>									
+									<div class="kv-item clearfix">
+										<label>中奖状态：</label>
+										<div class="kv-item-content">
+											<select field="status">
+												<option value="">——全部——</option>
+												<option value="1">中奖</option>
+												<option value="-1">未中奖</option>
+												<option value="0">待开奖</option>
+											</select>
+										</div>
+									</div>
+									<a href="javascript:;" class="sapar-btn sapar-btn-recom query-btn2">查询</a>
+									<a href="javascript:;" class="sapar-btn sapar-btn-recom reset-btn2">重置</a>
+								</div>
+								<div class="table-box">
+									<table id="table2"></table>
+								</div>
+								<div id="pagin2" class="pagination"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="saper-ft"></div>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,892 @@
+body{
+  font-size:12px;
+}
+.layui-table-cell{
+  height: 31px;
+  line-height: 31px;
+  padding:0 5px;
+}
+#tabBodyResultLog .layui-table-cell{
+  padding:0 0;
+}
+#tabBodyResultLog .layui-table td, #tabBodyResultLog .layui-table th{
+  font-size: 12px;
+}
+.layui-col-md{
+  width:31%;
+  float: left;
+}
+
+.end-time{
+  font-size:14px;
+  font-weight: bold;
+  /* color: red; */
+}
+.layui-card-header,.layui-card-body{
+  text-align: center;
+}
+.layui-card-body{
+  height: 40px;
+}
+.publish-time {
+  display: block;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #2B2F38;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  /* font-weight: bold; */
+  color: #ffffff;
+  line-height: 40px;
+}
+.count-number{
+  display: block;
+  width: 120px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 40px;
+  background-color: #FFFFFF;
+  color: red;
+}
+
+.orangeBallBox{
+  width: 430px;
+  padding-right: 75px;
+  padding-left: 125px;
+  float:left;
+}
+.orangeBallBox li {
+    width: 33px;
+    margin-right: 6px;
+    float: left;
+    text-align: center;
+    height: 50px;
+    line-height: 14px;
+}
+.orangeBallBox li a.active, .orangeBallBox li a.active:visited, .orangeBallBox li a.active:hover {
+  background-position: -70px 0;
+  color: #fff;
+}
+
+.orangeBallBox li a, .orangeBallBox li a:visited {
+    background: url(../images/js_ball.png) 0 0 no-repeat;
+    width: 33px;
+    height: 33px;
+    display: block;
+    text-align: center;
+    line-height: 34px;
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    outline: 0;
+    /* border-radius: 16px; */
+}
+.docBody a:link, .docBody a:visited {
+  color: #333;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.greenBallBox {
+    width: 234px;
+    float: left;
+}
+.greenBallBox li {
+width: 33px;
+margin-right: 6px;
+float: left;
+text-align: center;
+height: 50px;
+line-height: 14px;
+}
+.greenBallBox li a.active, .greenBallBox li a.active:visited, .greenBallBox li a.active:hover {
+background-position: -140px 0;
+color: #fff;
+}
+.greenBallBox li a, .greenBallBox li a:visited {
+background: url(../images/js_ball.png) 0 0 no-repeat;
+width: 33px;
+height: 33px;
+display: block;
+text-align: center;
+line-height: 34px;
+font-size: 16px;
+font-weight: 700;
+overflow: hidden;
+outline: 0;
+}
+.ssq_main .selectNum {
+padding-top: 5px;
+}
+.selectNum {
+clear: both;
+float: none;
+}
+.selectNum .title {
+clear: both;
+height: 30px;
+line-height: 30px;
+padding-left: 165px;
+position: relative;
+z-index: 11;
+overflow: hidden;
+margin-bottom: 5px;
+}
+.selectNum .title h2 {
+float: left;
+}
+.selectNum .orangeTitle {
+text-align: center;
+width: 423px;
+margin-right: 41px;
+}
+.selectNum .orangeTitle strong {
+color: orange;
+font-size: 16px;
+}
+.selectNum .title h2 span {
+color: #c4c4c4;
+font-size: 12px;
+}
+.selectNum .greenTitle {
+text-align: center;
+width: 228px;
+}
+.selectNum .greenTitle strong {
+color: green;
+font-size: 16px;
+}
+.selectInfo {
+height: 20px;
+clear: both;
+float: none;
+text-align: center;
+padding-top: 11px;
+}
+.random_selection {
+clear: both;
+float: none;
+text-align: right;
+color: #717171;
+line-height: 22px;
+padding-top: 2px;
+padding-right: 10px;
+}
+.selectInfo span {
+background: #fff;
+padding: 0 10px;
+display: inline-block;
+position: relative;
+z-index: 10;
+}
+.selectInfo i {
+display: block;
+margin: -8px 15px 0 37px;
+height: 1px;
+border-top: 1px dotted #aeaeae;
+position: relative;
+z-index: 9;
+}
+.random_selection .radom_orangebtn:hover {
+color: orange;
+text-decoration: none;
+background-position: 0 -21px;
+}
+.random_selection .radom_orangebtn:link, .random_selection .radom_orangebtn:visited {
+color: orange;
+}
+.selectInfo strong, .betresult strong {
+padding: 0 5px;
+}
+.select_orange{
+color: orange;
+}
+.select_green{
+color: green;
+}
+.select_count, .select_money{
+color:red;
+}
+.betbtnBox, .revisebtnBox {
+padding: 11px 0 6px 0;
+text-align: center;
+}
+.selected_box {
+padding-left: 81px;
+clear: both;
+display: inline-block;
+margin-top: 10px;
+}
+.selected_list {
+float: left;
+border: 1px solid #b6b6b6;
+}
+.selected_list dl {
+border-top: 1px solid #f1f1f1;
+border-left: 1px solid #fafafa;
+width: 479px;
+height: 165px;
+/* overflow-x: hidden;
+overflow-y: scroll; */
+}
+.randomBtn {
+height: 38px;
+margin: 10px 0 3px 0;
+width: 138px;
+}
+.randomBtn input,.randomBtn button{
+float:left;
+margin-right: 10px;
+}
+.selected_btnbox {
+float: left;
+position: relative;
+padding-left: 10px;
+text-align: left;
+}
+.betresult {
+padding: 3px 390px 0 0;
+height: 27px;
+line-height: 27px;
+text-align: right;
+}
+.layui-table, .layui-table-view{
+margin:0;
+}
+.layui-table-view .layui-table td, .layui-table-view .layui-table th{
+padding: 0;
+}
+/* #dgHistory .layui-table-cell{
+padding: 0 10px;
+} */
+.layui-tab-content{
+  padding: 10px 0 0 0;
+}
+.layui-col-space15>*{
+padding: 10px;
+}
+.layui-tab-brief>.layui-tab-title .layui-this{
+color: #3b85c8;
+}
+.layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+border-bottom: 2px solid #3b85c8;
+}
+.layui-elem-quote{
+border-left: 5px solid #3b85c8;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+background-color: #3b85c8;
+}
+
+
+
+
+body .hide {
+display: none;
+}
+address, caption, cite, code, dfn, em, th, var, i, b {
+font-style: normal;
+font-weight: 500;
+}
+.game_header {
+border: 1px solid #dadbdd;
+background-color: #e1e3e5;
+padding: 8px 0 8px 8px;
+clear: both;
+position: relative;
+z-index: 10;
+}
+.game_logo, .betting_countDown, .game_header .awardBox {
+display: block;
+width: 181px;
+height: 153px;
+margin-right: 10px;
+background-color: #fbfbfb;
+overflow: hidden;
+float: left;
+}
+.game_logo .kuai3, .game_logo .oldkuai3, .game_logo .gxkuai3, .game_logo .hbkuai3, .game_logo .ahkuai3, .game_logo .nmgkuai3 {
+background: url(../images/seven.png) no-repeat center center;
+}
+.game_logo .cz_logo {
+display: block;
+width: 155px;
+height: 112px;
+margin: 0 auto;
+overflow: hidden;
+text-align: center;
+padding: 6px 0 5px 0;
+text-indent: 0;
+}
+.game_logo .cz_logo a {
+display: block;
+width: 120px;
+height: 112px;
+font-weight: 700;
+font-size: 22px;
+font-family: '宋体';
+color: #333;
+}
+.docBody a:link, .docBody a:visited {
+color: #333;
+}
+.docBody a {
+color: #333;
+}
+/* a:link, a:visited {
+color: #1E50A2;
+}
+a {
+color: #1E50A2;
+} */
+.game_logo .game_intro {
+text-align: center;
+line-height: 20px;
+}
+.game_logo .game_intro span {
+display: block;
+color: #727272;
+}
+.betting_countDown {
+width: 380px;
+height: 153px;
+}
+.bet_period{
+text-align: center;
+font-weight: 700;
+height: 28px;
+line-height: 28px;
+font-size: 14px;
+padding: 8px 0 6px;
+}
+.bet_period em {
+font-weight: 700;
+font-family: '宋体';
+font-size: 16px;
+}
+.c_ba2636, a.c_ba2636:link, a.c_ba2636:visited {
+color: #ba2636;
+}
+.countDownBox {
+display: block;
+width: 212px;
+height: 70px;
+background: url(../images/lottery_header.png) no-repeat;
+margin: 0 auto;
+text-align: center;
+}
+.countDownBox span{height:58px;line-height:58px;color:#fff;width:95px;font-size:47px;vertical-align:top}
+.betting_countDown .intro {
+text-align: center;
+color: #727272;
+}
+.betting_countDown .intro em {
+font-weight: 700;
+color: #ba2636;
+}
+.tgTextWrap {
+float: none;
+text-align: center;
+height: 24px;
+overflow: hidden;
+}
+.tgTextWrap ul {
+font: 12px/24px simsun;
+}
+.clearfix:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: "\20 ";
+clear: both;
+height: 0;
+}
+.game_header .awardBox {
+width: 420px;
+margin-right: 0;
+position: relative;
+}
+.game_header .awardBox .bet_period {
+padding-bottom: 0;
+}
+.fixBallPos {
+margin-left: 48px;
+}
+.awerdNum_balls {
+text-align: center;
+height: 70px;
+clear: both;
+margin-left: 48px;
+}
+.awerdNum_balls .kuai3Ball {
+width: 82px;
+height: 70px;
+display: block;
+background: url(../images/kuai3_awardNum.png) no-repeat;
+text-indent: -9999px;
+white-space: nowrap;
+overflow: hidden;
+float: left;
+}
+.awerdNum_balls .num1 {
+background-position: 0 -29px;
+}
+.awerdNum_balls .num2 {
+background-position: -82px -29px;
+}
+.awerdNum_balls .num3 {
+background-position: 0 -104px;
+}
+.awerdNum_balls .num4 {
+background-position: -82px -104px;
+}
+.awerdNum_balls .num5 {
+background-position: 0 -179px;
+}
+.awerdNum_balls .num6 {
+background-position: -82px -179px;
+}
+.awerdNum_other {
+margin-right: -8px;
+}
+.awerdNum_other {
+text-align: center;
+}
+.awerdNum_other em {
+font-weight: 700;
+font-size: 14px;
+}
+.kjInfoBox {
+position: absolute;
+right: 20px;
+margin: 0;
+top: 36px;
+text-align: left;
+}
+.kjInfoBox .c_ba2636 {
+font-size: 35px;
+color: #333;
+font-weight: 400;
+}
+.kjInfoBox i {
+display: block;
+}
+.awerdNum_other .numType {
+width: 16px;
+height: 16px;
+line-height: 16px;
+color: #fff;
+display: inline-block;
+background: url(../images/lottery_header.png) no-repeat;
+margin-left: 3px;
+font-weight: 700;
+font-size: 12px;
+text-align: center;
+}
+.awerdNum_other .nt_big {
+background-position: 0 -105px;
+}
+.awerdNum_other .nt_small{background-position:-20px -105px}
+.awerdNum_other .nt_odd{background-position:-40px -105px}
+.awerdNum_other .nt_dual {
+background-position: -59px -105px;
+}
+#trendLinks {
+position: absolute;
+left: 10px;
+bottom: 6px;
+}
+.totalPool{
+  font-size: 26px;
+  font-weight: bold;
+  color: #ba2636;
+}
+.kjing{position:absolute;width:57px;right:24px;top:75px}
+.show_moreAwards {
+position: absolute;
+display: inline-block;
+width: 116px;
+height: 17px;
+background: url(../images/lottery_header.png) no-repeat 0 -77px;
+bottom: 0;
+_bottom: -1px;
+right: 0;
+padding: 8px 0 0 28px;
+line-height: 16px;
+overflow: hidden;
+cursor: pointer;
+overflow: hidden;
+}
+.openDetail, .closeDetail {
+display: inline-block;
+width: 14px;
+height: 8px;
+line-height: 8px;
+background: url(../images/lottery_header.png) no-repeat -183px -77px;
+cursor: pointer;
+vertical-align: middle;
+overflow: hidden;
+}
+.closeDetail {
+background-position: -183px -91px;
+}
+.awardList {
+border: 1px solid #dadbdd;
+border-top: 0;
+background-color: #e1e3e5;
+padding: 0 8px 8px 8px;
+clear: both;
+margin-top: -1px;
+margin-bottom: 10px;
+}
+.awardList_table {
+width: 100%;
+background-color: #f6f7f7;
+border: 1px solid #e1e3e5;
+text-align: center;
+}
+colgroup {
+display: table-column-group;
+}
+.awardList_table thead{
+background: url(../images/repeat_x.png) repeat-x 0 0;
+}
+.awardList_table th{
+font-weight: 700;
+line-height: 40px;
+}
+.awardList_table td, .awardList_table th {
+border: 1px solid #e1e3e5;
+}
+.awardList_table td {
+line-height: 36px;
+}
+.awardList_table .smallball {
+float: left;
+padding-left: 30px;
+}
+.smallball {
+height: 28px;
+vertical-align: middle;
+}
+.smallball .kuai3Ball {
+width: 25px;
+height: 26px;
+display: block;
+background: url(../images/kuai3_awardNum.png) no-repeat;
+text-indent: -9999px;
+overflow: hidden;
+margin-right: 8px;
+vertical-align: middle;
+float: left;
+}
+.smallball .num1 {
+background-position: 0 0;
+}
+.smallball .num2 {
+background-position: -27px 0;
+}
+.smallball .num3 {
+background-position: -54px 0;
+}
+.smallball .num4 {
+background-position: -81px 0;
+}
+.smallball .num5 {
+background-position: -108px 0;
+}
+.smallball .num6 {
+background-position: -135px 0;
+}
+
+.awardList_table td em {
+text-align: center;
+display: inline-block;
+white-space: nowrap;
+}
+.awardList_table td strong {
+font-size: 16px;
+}
+.awardList_table td.small {
+color: #fff;
+background-color: #5da9c8;
+}
+.awardList_table td.dual {
+color: #fff;
+background-color: #88c85d;
+}
+.awardList_table td.big {
+color: #fff;
+background-color: #d1507e;
+}
+.awardList_table td.odd {
+color: #fff;
+background-color: #f1764b;
+}
+
+
+.prePeriod {
+height: 28px;
+padding-top: 5px;
+line-height: 28px;
+padding-left: 8px;
+clear: both;
+float: none;
+}
+.smallball {
+height: 28px;
+vertical-align: middle;
+}
+
+.award_countDown {
+width: 145px;
+height: 43px;
+line-height: 43px;
+margin: 0 auto;
+display: block;
+font-size: 38px;
+}
+.award_countDown .icon_time {
+background: url(../images/lottery_header.png) no-repeat -150px -77px;
+width: 25px;
+height: 28px;
+display: inline-block;
+margin-right: 8px;
+}
+.awerdNum_balls .nullData {
+background: url(../images/kuai3ball_nullData.gif) no-repeat center 0;
+margin-top: 5px;
+}
+.layui-tab{
+position: relative;
+}
+.moreLink {
+position: absolute;
+left: 410px;
+top:10px;
+}
+.moreLink li {
+float: left;
+margin-right: 13px;
+}
+
+.moreLink li i {
+display: inline-block;
+width: 17px;
+height: 17px;
+line-height: 17px;
+background: url(../images/icon16px.png) no-repeat 0 0;
+font-size: 0;
+margin-right: 3px;
+vertical-align: middle;
+}
+.moreLink li i.trend_icon {
+background-position: -41px -84px;
+}
+.moreLink li i.gameIntru_icon {
+background-position: -61px -84px;
+}
+.assistBox .active {
+background-position: 0 -44px;
+}
+.moreLink a:hover{color:#ba2636;text-decoration:none}
+.bettingBox {
+width: 988px;
+border-top: 0;
+}
+.bettingBox {
+background: #fff;
+}
+.gameMenus .end{
+width: 110px;
+}
+.moreLinkRight{
+position: absolute;
+right:10px;
+top:10px;
+font-size: 13px;
+}
+.bottomBox {
+border-bottom: 1px solid #d3d3d3;
+margin-bottom: -1px;
+}
+.bottomBox h3 {
+clear: both;
+float: none;
+height: 15px;
+line-height: 15px;
+padding: 11px 15px 11px;
+}
+.bottomBox h3 strong, .bottomBox h3 .c_727272 {
+float: left;
+}
+.bottomBox h3 .more {
+float: right;
+display: inline-block;
+color: #717171;
+cursor: pointer;
+}
+.bottomBox h3 em, .bottomBox h3 .closeIcon, .bottomBox .helpContent, .bottomBoxShow h3 b, .bottomBoxShow h3 .openIcon {
+display: none;
+}
+.helpContent{
+overflow: hidden;
+}
+.openIcon, .closeIcon {
+background: url(../images/icon16px.png) no-repeat -103px -84px;
+width: 9px;
+height: 17px;
+display: inline-block;
+line-height: 17px;
+font-size: 0;
+margin-left: 3px;
+vertical-align: middle;
+-webkit-transition: -webkit-transform .2s ease-in;
+-moz-transition: -moz-transform .2s ease-in;
+-ms-transition: -ms-transform .2s ease-in;
+-o-transition: -o-transform .2s ease-in;
+transition: transform .2s ease-in;
+}
+.closeIcon {
+-webkit-transform: rotate(180deg);
+-moz-transform: rotate(180deg);
+-o-transform: rotate(180deg);
+transform: rotate(180deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+-ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+.winnerNum_table {
+width: 100%;
+border: 0;
+margin: 0 0 -1px -1px;
+line-height: 30px;
+border-bottom: 1px solid #ddd;
+color: #999;
+}
+.winnerNum_table td {
+border: 1px solid #eee;
+border-left: 0;
+border-right: 0;
+text-align: center;
+}
+.winnerNum_table .period {
+border-left: 1px solid #eee;
+}
+.winnerNum_table th {
+background: #f6f6f6;
+text-align: center;
+color: #333;
+}
+.winnerNum_table td.period {
+color: #a0a0a0;
+}
+.winnerNum_table td.awardTd {
+color: #b12034;
+font-weight: 700;
+}
+.c_090, a.c_090:link, a.c_090:visited {
+color: #090;
+}
+.betBtnBox {
+border-bottom: 1px solid #d3d3d3;
+clear: both;
+padding: 10px 0 15px;
+}
+.intrDetail {
+padding: 15px 25px 15px 30px;
+line-height: 22px;
+text-align: left;
+}
+.intrDetail p {
+padding-bottom: 5px;
+}
+.prizeIntro_table {
+width: 100%;
+border: 0;
+margin: 0 0 -1px -1px;
+line-height: 30px;
+}
+.prizeIntro_table th {
+background: #f6f6f6;
+border-left: 1px solid #eee;
+padding-left: 15px;
+text-align: left;
+}
+.prizeIntro_table td {
+border: 1px solid #eee;
+border-right: 0;
+line-height: 20px;
+padding: 5px 0 5px 15px;
+text-align: left;
+}
+.c_1e50a2, a.c_1e50a2:link, a.c_1e50a2:visited {
+  color: #1e50a2;
+}
+.smallOrangeball, .smallGreenball {
+  display: inline-block;
+  height: 21px;
+  width: 20px;
+  color: #fff;
+  font: 700 14px/21px Arial;
+  background: url(../images/js_ball.png) no-repeat 0 -38px;
+  text-align: center;
+  margin-right: 3px;
+}
+.smallGreenball {
+background-position: -23px -38px;
+}
+.currenAward {
+font-family: Arial;
+padding-left: 5px;
+}
+
+.addSubtract {
+  height: 20px;
+  width: 83px;
+  display: inline-block;
+  border: 1px solid #abadb3;
+  margin: 0 3px;
+  position: relative;
+  top: 6px;
+  _top: 7px;
+  z-index: 50;
+}
+.addSubtract a {
+  width: 22px;
+  background: url(../images/szc_comicons.png) no-repeat;
+  display: inline-block;
+  height: 20px;
+  font-family: Simsun;
+  font-size: 14px;
+  outline: 0;
+}
+.addSubtract a.add, .addSubtract a.addDisable {
+  float: right;
+  border-left: 1px solid #abadb3;
+  background-position: -119px 0;
+}
+.addSubtract a.subtract, .addSubtract a.subtractDisable {
+  float: left;
+  border-right: 1px solid #abadb3;
+  background-position: -72px 0;
+}
+.addSubtract a.subtractDisable, .addSubtract a.subtractDisable:hover {
+  background-position: -72px -22px;
+  cursor: default;
+}
+.addSubtract input {
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  border: 0;
+  padding: 0;
+  width: 37px;
+  _width: 36px;
+  text-align: center;
+}

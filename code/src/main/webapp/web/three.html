@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>区块链产品消费交易众筹平台-三个胖骰子</title>
+  <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+  <link href="/statics/layui/css/layui.css" rel="stylesheet" type="text/css">
+  <link href="css/site.css" rel="stylesheet" type="text/css">
+  <link href="css/three.css" rel="stylesheet" type="text/css">
+  <style>
+    .content{
+        display: inline-block;
+        width: 100%;
+      }
+      .portfolio_title {
+        height: 90px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .play-content {
+        width: 990px;
+        margin: 0 auto;
+      }
+      .notice {
+        width: 990px;
+        border-radius: 4px;
+        background-color: #FFFDE6;
+        font-size: 16px;
+        line-height: 64px;
+        height: 64px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -495px;
+        z-index: 100;
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #FFEDD3;
+      }
+      .notice .icon {
+          position: absolute;
+          top: 15px;
+          left: -10px;
+          width: 32px;
+          height: 32px;
+          background: url(images/notice.png) no-repeat;
+      }
+      .notice .body {
+        display: block;
+        margin: 0 40px;
+        overflow: hidden;
+        height: 40px;
+      }
+      .notice a, .notice a:hover, .notice a:active{
+        color: #ba2636;
+      }
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #777;
+      }
+      a:active, a:hover {
+        outline: 0;
+      }
+      .three-logo{
+        background: url(images/three.png) no-repeat;
+        background-size: 100% 100%;
+        margin: 0 auto;
+      }
+      .layui-body {
+        margin-top: 20px;
+      }
+      
+      </style>
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="layui-header"></div>
+    <section class="content">
+      <div class="portfolio_title">
+        <div id="seven_notice" class="notice">
+          <span class="icon"></span>
+          <div class="body"></div>
+        </div>
+    </section>
+    <div class="layui-body">
+      <div class="play-content">
+        <header class="game_header clearfix">
+          <div class="game_logo">
+            <h1 class="cz_logo gxkuai3"></h1>
+            <p class="game_intro"><span id="current_playRate">10分钟一期</span></p>
+          </div>
+          <div class="betting_countDown" id="countDownLeft">
+            <p class="bet_period">距 <em id="current_time1" class="c_ba2636">20181208001</em> 期参与截止还有：</p>
+            <p class="countDownBox"><span id="wait_timedown">00:00:00</span></p>
+            <p class="intro">今天已开 <span id="wait_open">78</span> 期，还剩 <em id="wait_leave">0</em> 期</p>
+            <div class="tgTextWrap clearfix">
+              <ul>
+              </ul>
+            </div>
+          </div>
+          <div class="awardBox">
+            <div id="countDownRight1">
+              <p class="bet_period">第 <em id="front_time1" class="c_ba2636">20180101001</em> 期开奖号码：
+                <em id="front_numbers" class="c_ba2636">1 1 1</em></p>
+              <p class="awerdNum_balls fixBallPos">
+                <em class="kuai3Ball num1" id="front1_num1"></em>
+                <em class="kuai3Ball num1" id="front1_num2"></em>
+                <em class="kuai3Ball num1" id="front1_num3"></em>
+              </p>
+              <p class="awerdNum_other kjInfoBox">和值：<em id="front_sum1" class="c_ba2636">3</em>&nbsp;&nbsp;<i>形态：
+                  <em id="front1_numType1" class="numType nt_small">小</em>
+                  <em id="front1_numType2" class="numType nt_dual">单</em></i></p>
+            </div>
+            <div style="display:none;" id="countDownRight2">
+              <p class="prePeriod"><span><span id="front_time2">20180101001</span>期开奖号码：</span>
+                <span class="smallball">
+                  <em class="kuai3Ball num1" id="front2_num1"></em>
+                  <em class="kuai3Ball num1" id="front2_num2"></em>
+                  <em class="kuai3Ball num1" id="front2_num3"></em>
+                </span>
+                <span class="awerdNum_other">和值：<em id="front_sum2" class="c_ba2636">3</em>&nbsp;&nbsp;<i>形态：<em id="front2_numType1" class="numType nt_small">小</em>
+                    <em id="front2_numType2" class="numType nt_odd">单</em></i></span></p>
+              <p class="bet_period">第 <em id="current_time2" class="c_ba2636">20181208029</em> 期等待开奖：</p>
+              <p class="award_countDown"><i class="icon_time"></i><span id="wait_timedown1" name="awardTimer">01:07</span></p>
+            </div>
+            <div style="display:none;" id="countDownRight3">
+              <p class="bet_period">第 <em id="current_time3" class="c_ba2636">20181208026</em> 期开奖中：</p>
+              <p class="awerdNum_balls fixBallPos"><em class="kuai3Ball nullData"></em><em class="kuai3Ball nullData"></em><em
+                  class="kuai3Ball nullData"></em></p>
+              <p class="kjing">开奖中…</p>
+            </div>
+            <div id="trendLinks">
+              <!-- <a href="http://trend.caipiao.163.com/gxkuai3/#from=kj" target="_blank">走势图参与</a>
+              <a href="http://trend.caipiao.163.com/gxkuai3/hezhi.html#from=kj" target="_blank">和值走势</a> -->
+              <!-- <a href="http://caipiao.163.com/award/gxkuai3/#from=kj" target="_blank">历史开奖查询</a> -->
+            </div>
+            <div class="show_moreAwards" id="awardListBtn">查看更多开奖号码 <i class="openDetail"></i></div>
+          </div>
+        </header>
+        <section id="awardList" class="awardList hide">
+          <div>
+            <table class="awardList_table">
+              <colgroup>
+                <col width="15%">
+                <col width="16%">
+                <col width="">
+                <col width="6%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="14%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th rowspan="2">期号</th>
+                  <th rowspan="2">开奖号码</th>
+                  <th rowspan="2">中奖号码形式状态</th>
+                  <th rowspan="2">和值</th>
+                  <th colspan="4">和值形态</th>
+                  <th rowspan="2">开奖时间</th>
+                </tr>
+                <tr>
+                  <th>大</th>
+                  <th>小</th>
+                  <th>单</th>
+                  <th>双</th>
+                </tr>
+              </thead>
+              <tbody id="moreAward">
+              </tbody>
+            </table>
+        </section>
+
+        <div class="layui-tab layui-tab-card" lay-filter="docDemoTabBrief">
+          <ul class="layui-tab-title" id="tabMenu">
+            <li class="layui-this" id="liSelectNumber">选号</li>
+            <li class="">走势图</li>
+            <li class="">历史开奖查询</li>
+            <li class="" id="liLog">参与记录</li>
+          </ul>
+          <ul class="moreLink">
+            <!-- <li><a target="_blank" href="threelog.html"><i class="trend_icon"></i>走势图</a></li> -->
+            <li><a id="gamePlayUrl" href="#awardTableInfo"><i class="gameIntru_icon"></i>玩法说明</a></li>
+          </ul>
+          <ul id="moreLinkRight" class="moreLinkRight">销售时间：每天9:28~22:28销售</ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+              <!-- <blockquote class="layui-elem-quote">
+          参与截止时间：<strong style="color:red;" id="wait_endtime">2018-10-25 19:40</strong>&nbsp;&nbsp;&nbsp;
+          开奖时间：<strong style="color:red;" id="wait_publishtime">2018-10-25 19:40</strong>
+        </blockquote> -->
+
+              <section class="bettingBox" style="text-align: center;">
+                <!-- 参与菜单 -->
+                <nav class="gameMenus">
+                  <ul id="k3_tab">
+                    <li name="hz" class="active"><strong>和值</strong> <em>奖金：0</em> </li>
+                    <li name="3tx"><strong>三同号通选</strong> <em data-plus-game="3tx">奖金：￥40</em> </li>
+                    <li name="3dx"><strong>三同号单选</strong> <em data-plus-game="3dx">奖金：￥240</em></li>
+                    <li name="3bt"><strong>三不同号</strong> <em data-plus-game="3bt">奖金：￥40</em></li>
+                    <li name="3lt"><strong>三连号通选</strong> <em data-plus-game="3lt">奖金：￥10</em> </li>
+                    <li name="2fx"><strong>二同号复选</strong> <em data-plus-game="2fx">奖金：￥15</em> </li>
+                    <li name="2dx"><strong>二同号单选</strong> <em data-plus-game="2dx">奖金：￥80</em> </li>
+                    <li name="2bt"><strong>二不同号</strong> <em data-plus-game="2bt">奖金：￥8</em></li>
+                    <li name="1tx" class="end kuai3_rand"><strong>猜1个号就中奖</strong><span></span> </li>
+                  </ul>
+                </nav>
+                <!-- 参与菜单 -->
+
+                <!-- 参与内容 -->
+                <div id="mainPanels">
+                  <div class="betBox hezhi" id="panl_hz">
+                    <div class="title">
+                      <h3>玩法提示：</h3>
+                      至少选择1个和值（3个号码之和）进行参与，所选和值与开奖的3个号码的和值相同即中奖，最高可中 <em>0</em> DG。
+                      <i class="jtip questionMark" tip="#tip_hz"></i>
+                    </div>
+                    <div class="select_num">
+                      <p class="assistBox"> <strong class="">选号区：&nbsp;&nbsp;</strong> <em class="assistBtn" data-xt="小">小<span>(3-10)</span></em>
+                        <em class="assistBtn" style=" margin-right:20px" data-xt="单">单<span>(全部奇数)</span></em> <em
+                          class="assistBtn" data-xt="双">双<span>(全部偶数)</span></em> <em class="assistBtn" data-xt="大">大<span>(11-18)</span></em>
+                      </p>
+                      <ul class="Blocksballs OneNum clearfix">
+                        <li class="js_ball" data-value="3"><em>3</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="4"><em>4</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="5"><em>5</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="6"><em>6</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="7"><em>7</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="8"><em>8</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="9"><em>9</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="10"><em>10</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="11"><em>11</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="12"><em>12</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="13"><em>13</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="14"><em>14</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="15"><em>15</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="16"><em>16</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="17"><em>17</em><span>奖金0</span></li>
+                        <li class="js_ball" data-value="18"><em>18</em><span>奖金0</span></li>
+                        <li class="clear" data-action="clear">清空</li>
+                      </ul>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox sthtx hide" id="panl_3tx">
+                    <div class="title">
+                      <h3>玩法提示：</h3>对所有相同的三个号码（111、222、333、444、555、666）进行参与，任意号码开出即中奖，单注奖金 <em>0</em> DG。<i class="jtip questionMark"
+                        tip="#tip_3tx"></i>
+                    </div>
+
+                    <div class="select_num ">
+                      <div class="Blocksballs sthtx_ball">
+                        <em title="三同号通选" class="js_ball" data-value="1"></em>
+                      </div>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox sthdx hide" id="panl_3dx">
+                    <div class="title">
+                      <h3>玩法提示：</h3>
+                      对相同的三个号码（111、222、333、444、555、666）中的任意一个进行参与，所选号码开出即中奖，单注奖金 <em>0</em> DG。
+                      <i class="jtip questionMark" tip="#tip_3dx"></i>
+                    </div>
+
+                    <div class="select_num">
+                      <ul class="Blocksballs twoNumBt clearfix" id="k3_3dx_balls">
+                        <li class="js_ball" data-value="1"><em>1</em><em>1</em><em>1</em></li>
+                        <li class="js_ball" data-value="2"><em>2</em><em>2</em><em>2</em></li>
+                        <li class="js_ball" data-value="3"><em>3</em><em>3</em><em>3</em></li>
+                        <li class="js_ball" data-value="4"><em>4</em><em>4</em><em>4</em></li>
+                        <li class="js_ball" data-value="5"><em>5</em><em>5</em><em>5</em></li>
+                        <li class="js_ball" data-value="6"><em>6</em><em>6</em><em>6</em></li>
+                        <li class="clear" data-action="clear">清空</li>
+                      </ul>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox sbth hide" id="panl_3bt">
+                    <div class="gameWrap putong">
+                      <div class="title">
+                        <h3>玩法提示：</h3>从1～6中任选3个或多个号码，所选号码与开奖号码的3个号码相同即中奖，单注奖金 <em>0</em> DG。<i class="jtip questionMark"
+                          tip="#tip_3bt"></i>
+                      </div>
+
+                      <div class="select_num">
+                        <ul class="Blocksballs OneNum clearfix">
+                          <li class="js_ball" data-value="1"><em>1</em></li>
+                          <li class="js_ball" data-value="2"><em>2</em></li>
+                          <li class="js_ball" data-value="3"><em>3</em></li>
+                          <li class="js_ball" data-value="4"><em>4</em></li>
+                          <li class="js_ball" data-value="5"><em>5</em></li>
+                          <li class="js_ball" data-value="6"><em>6</em></li>
+                          <li class="clear" data-action="clear">清空</li>
+                        </ul>
+                      </div>
+                      <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                          class="select_reward"></span></p>
+                      <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                      <div class="betbtnBox newbieGuideStep2">
+                        <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="betBox slhtx hide" id="panl_3lt">
+                    <div class="title">
+                      <h3>玩法提示：</h3>对所有3个相连的号码（123、234、345、456）进行参与，任意号码开出即中奖，单注奖金 <em>0</em> DG。<i class="jtip questionMark"
+                        tip="#tip_3lt"></i>
+                    </div>
+                    <div class="select_num ">
+                      <div class="Blocksballs slhtx_ball">
+                        <em title="三同号通选" class="js_ball" data-value="1"></em>
+                        <!-- <em class="clear" data-action="clear">清空</em> -->
+                      </div>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox ethfx hide" id="panl_2fx">
+                    <div class="title">
+                      <h3>玩法提示：</h3>从11～66中任选1个或多个号码，选号与奖号（包含11～66，不限顺序）相同，即中奖 <em>0</em> DG。<i class="jtip questionMark"
+                        tip="#tip_2fx"></i>
+                    </div>
+                    <div class="select_num">
+                      <ul class="Blocksballs twoNum clearfix">
+                        <li class="js_ball" data-value="1"><em>1</em><em>1</em></li>
+                        <li class="js_ball" data-value="2"><em>2</em><em>2</em></li>
+                        <li class="js_ball" data-value="3"><em>3</em><em>3</em></li>
+                        <li class="js_ball" data-value="4"><em>4</em><em>4</em></li>
+                        <li class="js_ball" data-value="5"><em>5</em><em>5</em></li>
+                        <li class="js_ball" data-value="6"><em>6</em><em>6</em></li>
+                        <li class="clear" data-action="clear">清空</li>
+                      </ul>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox ethdx hide" id="panl_2dx">
+                    <div class="title">
+                      <h3>玩法提示：</h3>选择1对相同号码和1个不同号码参与，选号与奖号相同（顺序不限），即中奖 <em>0</em> DG。<i class="jtip questionMark" tip="#tip_2dx"></i>
+                    </div>
+                    <div class="select_num">
+                      <ul class="Blocksballs twoNum clearfix js_balls">
+                        <li class="title">同号：</li>
+                        <li class="js_ball" data-value="1"><em>1</em><em>1</em></li>
+                        <li class="js_ball" data-value="2"><em>2</em><em>2</em></li>
+                        <li class="js_ball" data-value="3"><em>3</em><em>3</em></li>
+                        <li class="js_ball" data-value="4"><em>4</em><em>4</em></li>
+                        <li class="js_ball" data-value="5"><em>5</em><em>5</em></li>
+                        <li class="js_ball" data-value="6"><em>6</em><em>6</em></li>
+                        <li class="clear" data-action="clear" data-index="0">清空</li>
+                      </ul>
+                      <div class="OptimizeBox js-datas-con clearfix"></div>
+                      <ul class="Blocksballs twoNumBt js_balls clearfix">
+                        <li class="title">不同号：</li>
+                        <li class="js_ball" data-value="1"><em>1</em></li>
+                        <li class="js_ball" data-value="2"><em>2</em></li>
+                        <li class="js_ball" data-value="3"><em>3</em></li>
+                        <li class="js_ball" data-value="4"><em>4</em></li>
+                        <li class="js_ball" data-value="5"><em>5</em></li>
+                        <li class="js_ball" data-value="6"><em>6</em></li>
+                        <li class="clear" data-action="clear" data-index="1">清空</li>
+                      </ul>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                  <div class="betBox ebth hide" id="panl_2bt">
+                    <div class="gameWrap putong">
+                      <div class="title">
+                        <h3>玩法提示：</h3>从1～6中任选2个或多个号码，所选号码与开奖号码任意2个号码相同，即中奖 <em>0</em> DG。<i class="jtip questionMark"
+                          tip="#tip_2bt"></i>
+                      </div>
+                      <div class="chartWrap hide ">
+                        <div class="ctrl"><strong>期次选择：</strong>
+                          <select>
+                            <option value="10">最新10期</option>
+                            <option value="20">最新20期</option>
+                          </select>
+                          <label><input type="checkbox" name="showLine" checked=""> 折线</label>
+                        </div>
+                      </div>
+
+                      <div class="select_num">
+                        <ul class="Blocksballs OneNum clearfix">
+                          <li class="js_ball" data-value="1"><em>1</em></li>
+                          <li class="js_ball" data-value="2"><em>2</em></li>
+                          <li class="js_ball" data-value="3"><em>3</em></li>
+                          <li class="js_ball" data-value="4"><em>4</em></li>
+                          <li class="js_ball" data-value="5"><em>5</em></li>
+                          <li class="js_ball" data-value="6"><em>6</em></li>
+                          <li class="clear" data-action="clear">清空</li>
+                        </ul>
+                      </div>
+                      <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                          class="select_reward"></span></p>
+                      <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                      <div class="betbtnBox newbieGuideStep2">
+                        <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="betBox ryhm hide" id="panl_1tx">
+                    <div class="title">
+                      <h3>玩法提示：</h3>选择1个您认为一定会开出的号码，系统将智能为您筛选出包含该号码的单选号码组合。
+                    </div>
+                    <div class="select_num">
+                      <ul class="Blocksballs OneNum clearfix">
+                        <li class="js_ball" data-value="1"><em>1</em></li>
+                        <li class="js_ball" data-value="2"><em>2</em></li>
+                        <li class="js_ball" data-value="3"><em>3</em></li>
+                        <li class="js_ball" data-value="4"><em>4</em></li>
+                        <li class="js_ball" data-value="5"><em>5</em></li>
+                        <li class="js_ball" data-value="6"><em>6</em></li>
+                        <li class="clear" data-action="clear">清空</li>
+                      </ul>
+                    </div>
+                    <p class="selectInfo"><span>您选中了<strong class="select_count">0</strong>注，共<strong class="select_money">0</strong>DG</span><span
+                        class="select_reward"></span></p>
+                    <!-- <div class="betbtnBox"> <a title="确认选号" rel="nofollow" class="betbtn disabled"></a> </div> -->
+                    <div class="betbtnBox newbieGuideStep2">
+                      <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-disabled" id="selectBall">确认选号</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- 参与内容 -->
+
+                <!-- 选号结果 -->
+                <div class="newbieGuideStep3">
+                  <div class="selected_box clearfix">
+                    <div id="select_list_box" class="selected_list">
+                      <dl>
+                        <table class="layui-hide" id="dg" lay-filter="dg"></table>
+                        <script type="text/html" id="bar">
+                            <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">修改</a> -->
+                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="delete">删除</a>
+                        </script>
+                      </dl>
+                    </div>
+                    <div class="selected_btnbox">
+                      <button class="layui-btn layui-btn-sm layui-btn-normal" style="width:105px;" id="randomOneBall">机选1注</button>
+                      <div class="randomBtn">
+                        <input type="text" name="title" lay-verify="title" style="width:50px;height: 30px;"
+                          autocomplete="off" placeholder="5注" class="layui-input" id="txtNumberBall" />
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" id="randomNumberBall">机选</button>
+                      </div>
+                      <button class="layui-btn layui-btn-primary layui-btn-sm" style="width:105px;" id="clearAllBall">清空列表</button><br /><br />
+                      <button class="layui-btn layui-btn-danger" style="width:105px;" id="submitBall">确认参与</button>
+                    </div>
+                  </div>
+                  <div class="betresult">
+                    共<strong id="countAllSum" class="select_count">0</strong>注，
+                     <!-- 我要买<span class="addSubtract">
+                      <a href="javascript:;" rel="nofollow" hidefocus="true" class="subtract subtractDisable"></a>
+                      <input type="text" value="1">
+                      <a href="javascript:;" rel="nofollow" hidefocus="true" class="add"></a>
+                    </span>倍， -->
+                    共<strong id="countAllMoney" class="select_money">0</strong>DG</span>
+                  </div>
+                </div>
+                <!-- 选号结果 -->
+
+                <div class="betBtnBox">
+                </div>
+                <!-- 今日开奖号码 -->
+                <div class="bottomBox" id="todayKaiJiang">
+                  <h3><strong>今日开奖号码</strong><span class="more"><em>收起</em><b>展开</b><i class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div class="helpContent">
+                    <table class="winnerNum_table" id="j-todayNumTable">
+                      <thead>
+                        <tr>
+                          <th width="5%" class="period">期号</th>
+                          <th width="8%">开奖号码</th>
+                          <th width="5%">和值</th>
+                          <th width="7%">形态</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="8%">开奖号码</th>
+                          <th width="5%">和值</th>
+                          <th width="7%">形态</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="8%">开奖号码</th>
+                          <th width="5%">和值</th>
+                          <th width="7%">形态</th>
+                          <th width="5%" class="period">期号</th>
+                          <th width="8%">开奖号码</th>
+                          <th width="5%">和值</th>
+                          <th width="7%">形态</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- 今日开奖号码 -->
+
+                <!-- 法律说明 -->
+                <div class="bottomBox" id="warmTip">
+                  <h3><strong>法律说明</strong><span class="more"><em>收起</em><b>展开</b><i
+                        class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div id="gameIntro_con" class="gameintro_com helpContent">
+                    <div class="intrDetail helpContent">
+                      <p><strong>1.限号风险提示：</strong></p>
+                      <p>在当期销售过程中，当参与号码未达到当前允许销售的最大参与数额时，各限号参与方式按实际销售的参与数额实时从福彩中心数据库限号池获取参与许可；若参与号码达到当前允许销售的最大参与数额，则限号池停止向各限号参与方式分配该参与号码的许可。</p>
+                      <p class="c_ba2636">按各参与方法不同设定最大赔付量。该参与方法最大参与注数=（该参与方法销量*0.59+该参与方法最大赔付量）/单注奖金，当该参与方法达到最大参与注数量时，出现限号。不同参与方式风险控制量不同，单种参与方式的最大赔付量是50万DG，单期最大返奖额可超过300万DG！</p>
+                      <p>动态实时限制是指在销售过程中，随着销量的增长，每种参与方式的即时允许销售注数，动态实时限制随着该参与方式销售总额的变化，按规定的算法进行动态计算并加以限制的过程。</p>
+                      <p class="c_ba2636">在当期销售过程中，当所选参与号码参与注数未超过当前动态实时限制注数时，该参与视为有效参与；若所选参与号码参与注数已超过当前动态实时限制注数，则视为无效参与，此时销售终端不接受该参与的申请。</p>
+                      <p><strong>2.追号异常处理流程：</strong></p>
+                      <p>由于官方开奖延迟或网络故障导致的用户追号方案未能按照用户要求中奖停止，由此产生的未停止期次参与损失，将由网易彩票于异常发生的第二个工作日，向用户补偿追号参与损失差额。</p>
+                      <p>追号补偿参与损失差额=<strong>中奖期次后</strong>产生的全部参与成功金额-<strong>中奖期次后</strong>产生的奖金金额</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 法律说明 -->
+                
+                <!-- 奖金计算方法 -->
+                <div class="bottomBox" id="awardTableInfo">
+                  <h3><strong>奖金计算方法</strong><span class="more"><em>收起</em><b>展开</b><i class="closeIcon"></i><i class="openIcon"></i></span></h3>
+                  <div class="helpContent">
+                    <table id="gameAwardIntro_con" class="prizeIntro_table">
+                      <thead>
+                        <tr>
+                          <th width="20%">参与方法</th>
+                          <th>开奖号码（不排序）</th>
+                          <th width="15%">参与号数</th>
+                          <th width="20%">中奖金额(DG)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>和值3</td>
+                          <td>111</td>
+                          <td>和值3</td>
+                          <td id="awardSum3">240DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值4</td>
+                          <td>112</td>
+                          <td>全选</td>
+                          <td id="awardSum4">80DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值5</td>
+                          <td>113、122</td>
+                          <td>全选</td>
+                          <td id="awardSum5">40DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值6</td>
+                          <td>114、123、222</td>
+                          <td>全选</td>
+                          <td id="awardSum6">25DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值7</td>
+                          <td>115、124、133、223</td>
+                          <td>全选</td>
+                          <td id="awardSum7">16DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值8</td>
+                          <td>116、125、134、224、233</td>
+                          <td>全选</td>
+                          <td id="awardSum8">12DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值9</td>
+                          <td>126、135、144、225、234、333</td>
+                          <td>全选</td>
+                          <td id="awardSum9">10DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值10</td>
+                          <td>136、145、226、235、244、334</td>
+                          <td>全选</td>
+                          <td id="awardSum10">9DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值11</td>
+                          <td>146、155、236、245、335、344</td>
+                          <td>全选</td>
+                          <td id="awardSum11">9DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值12</td>
+                          <td>156、246、255、336、345、444</td>
+                          <td>全选</td>
+                          <td id="awardSum12">10DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值13</td>
+                          <td>166、256、346、355、445</td>
+                          <td>全选</td>
+                          <td id="awardSum13">12DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值14</td>
+                          <td>266、356、446、455</td>
+                          <td>全选</td>
+                          <td id="awardSum14">16DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值15</td>
+                          <td>366、456、555</td>
+                          <td>全选</td>
+                          <td id="awardSum15">25DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值16</td>
+                          <td>466、556</td>
+                          <td>全选</td>
+                          <td id="awardSum16">40DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值17</td>
+                          <td>566</td>
+                          <td>全选</td>
+                          <td id="awardSum17">80DG</td>
+                        </tr>
+                        <tr>
+                          <td>和值18</td>
+                          <td>666</td>
+                          <td>和值18</td>
+                          <td id="awardSum18">240DG</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#fff3da">三同号通选</td>
+                          <td rowspan="2" bgcolor="#fff3da"> 111、222、333、444、555、666</td>
+                          <td bgcolor="#fff3da">全选</td>
+                          <td bgcolor="#fff3da" id="awardSum3tx">40DG</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#fff3da">三同号单选</td>
+                          <td bgcolor="#fff3da">选一个</td>
+                          <td bgcolor="#fff3da" id="awardSum3dx">240DG</td>
+                        </tr>
+                        <tr>
+                          <td>二同号复选</td>
+                          <td>11*、22*、33*、44*、55*、66*</td>
+                          <td>选一个</td>
+                          <td id="awardSum2fx">15DG</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#fff3da">二同号单选</td>
+                          <td bgcolor="#fff3da">112、113、114、115、116、122、223、224、225、226、133、233、334、335、336、144、244、344、445、446、155、255、355、455、556、166、266、366、466、566</td>
+                          <td bgcolor="#fff3da">选一个</td>
+                          <td bgcolor="#fff3da" id="awardSum2dx">80DG</td>
+                        </tr>
+                        <tr>
+                          <td>三不同号</td>
+                          <td>123、124、125、126、134、135、136、145、146、156、234、235、236、245、246、256、345、346、356、456</td>
+                          <td>选一个</td>
+                          <td id="awardSum3bt">40DG</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#fff3da">二不同号</td>
+                          <td bgcolor="#fff3da">12*、13*、14*、15*、16*、23*、24*、25*、26*、34*、35*、36*、45*、46*、56*</td>
+                          <td bgcolor="#fff3da">选一个</td>
+                          <td bgcolor="#fff3da" id="awardSum2bt">8DG</td>
+                        </tr>
+                        <tr>
+                          <td>三连号通选</td>
+                          <td>123、234、345、456</td>
+                          <td>全选</td>
+                          <td id="awardSum3lh">10DG</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- 奖金计算方法-->
+              </section>
+            </div>
+            <div class="layui-tab-item" id="tabBodyResultLog">
+              <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                <div class="layui-inline" style="width: 150px;">
+                    <input type="text" class="layui-input" id="tbResultLogDate" />
+                </div>
+                <button class="layui-btn layui-btn-normal" id="btnSearchResultLog">搜索</button>
+              </div>
+              <table class="layui-hide" id="dgResultLog"></table>
+            </div>
+            <div class="layui-tab-item" id="tabBodyResultHistory">
+                <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                  <div class="layui-inline" style="width: 150px;">
+                      <input type="text" class="layui-input" id="tbResultHistoryDate" />
+                  </div>
+                  <button class="layui-btn layui-btn-normal" id="btnSearchResultHistory">搜索</button>
+                </div>
+                <table class="winnerNum_table" id="resultHistoryTable">
+                  <thead>
+                    <tr>
+                      <th width="5%" class="period">期号</th>
+                      <th width="8%">开奖号码</th>
+                      <th width="5%">和值</th>
+                      <th width="7%">形态</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="8%">开奖号码</th>
+                      <th width="5%">和值</th>
+                      <th width="7%">形态</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="8%">开奖号码</th>
+                      <th width="5%">和值</th>
+                      <th width="7%">形态</th>
+                      <th width="5%" class="period">期号</th>
+                      <th width="8%">开奖号码</th>
+                      <th width="5%">和值</th>
+                      <th width="7%">形态</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+            </div>
+            <div class="layui-tab-item" id="tabBodyUserLog">
+              <div class="layui-form" style="margin-bottom: 10px; margin-left: 10px;">
+                <div class="layui-inline" style="width: 150px;">
+                  <select id="comboUserLogStatus" name="comboUserLogStatus">
+                    <option value="">——全部——</option>
+                    <option value="1">中奖</option>
+                    <option value="-1">未中奖</option>
+                    <option value="0">待开奖</option>
+                  </select>
+                </div>
+                <button class="layui-btn layui-btn-normal" id="btnSearchUserLog">搜索</button>
+              </div>
+              <table class="layui-hide" id="dgUserLog"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-bottom"></div>
+  </div>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+  <script type="text/javascript" src="/statics/layui/layui.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/include.js"></script>
+  <script type="text/javascript" src="js/three.js"></script>
+</body>
+
+</html>

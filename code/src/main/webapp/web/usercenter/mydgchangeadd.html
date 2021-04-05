@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>DG兑换</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .layui-elem-quote{
+      border-left: 5px solid #3b85c8;
+    }
+  </style>
+</head>
+
+<body>
+  <blockquote class="layui-elem-quote">
+    1、DG兑换只支持代币与DG币互相兑换！<br/>
+    2、兑换比例随市场行情变化不同！<br/>
+    3、余额： <span id="tipMoney1" style="color:green">1</span> <span id="tipTypeName1">1</span>&nbsp;&nbsp;&nbsp;
+    <span id="tipMoney2" style="color:red">1</span> DG！<br />
+    4、兑换比例：<span style="color:green">1</span> <span id="tipTypeName2">1</span> = <span id="tipScale" style="color:red">1</span> DG！<br />
+    5、手续费：<span id="tipBrokePercent" style="color:red">0</span> %！
+  </blockquote>
+  <br />
+  <form class="layui-form" action="">
+      <div class="layui-form-item">
+          <label class="layui-form-label">兑换类型</label>
+          <div class="layui-input-inline" style="width: 250px;">
+            <input id="typeMode1" type="radio" name="changeType" value="1" title="DG" lay-filter="changeType" checked="checked">
+            <input id="typeMode2" type="radio" name="changeType" value="2" title="DG" lay-filter="changeType">
+          </div>
+        </div>
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 兑换数量</label>
+        <div class="layui-input-inline" style="width: 100px;">
+          <input type="text" id="fromMoney" name="fromMoney" lay-filter="fromMoney" lay-verify="required|number" placeholder="￥"
+            autocomplete="off" class="layui-input" />
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+          实际到账：<span id="tipRealMoney" style="color:green">0</span>&nbsp;<span id="tipRealType"></span>&nbsp;&nbsp;
+          手续费：<span id="tipBrokeMoney" style="color:red">0</span>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label"><span class="layui-required">*</span> 交易密码</label>
+        <div class="layui-input-inline" style="width: 150px;">
+          <input type="password" id="dealPassword" name="dealPassword" lay-verify="required|pass" placeholder="请输入交易密码"
+            autocomplete="off" class="layui-input" maxlength="6" />
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <br />
+        <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">立即提交</button>
+      </div>
+    </div>
+  </form>
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+  <script type="text/javascript" src="../js/utils.js"></script>
+
+  <script>
+    var model = null, modelDG = null, lock = false;
+    $(function () {
+      if (!parent || !parent.model) {
+        window.location.href = "../usercenter.html";
+        return;
+      }
+      model = parent.model;
+      getUserMoneyInfo(model.id, function () {
+        layui.use(['form', 'element'], function () {
+          var form = layui.form, layer = layui.layer, element = layui.element;
+
+          //自定义验证规则
+          form.verify({
+            pass: [/(.+){6,12}$/, '密码必须6到12位']
+          });
+
+          //类型变化
+          form.on('radio(changeType)', function(data){
+            $("#fromMoney").val(0);
+            $("#tipRealMoney").text(0);
+            $("#tipRealType").text("");
+            $("#tipBrokeMoney").text(0);            
+          });
+
+          //算出手续费和实际到账数量
+          $("#fromMoney").on('change', function () {
+            var m1 = $("#fromMoney").val();
+            if (ValidateUtils.isFloat(m1)) {
+              m1 = parseFloat(m1);
+              var type = $("#typeMode1").is(":checked") ? 1 : 2;
+              if(type==1){ //兑换为DG
+                var tipMoney = parseFloat($("#tipMoney1").text());
+                if(m1 > tipMoney){
+                  layer.alert('兑换总额不能超过 '+tipMoney+' ！', { title: '出错了', icon: 5 }, function (index) {
+                    $("#tipRealMoney").text(0);
+                    $("#tipBrokeMoney").text(0);
+                    $("#tipRealType").text("");
+                    $("#fromMoney").val('');
+                    $("#fromMoney").focus();
+                    layer.close(index);
+                  });
+                  return false;
+                }
+                var toMoney = m1 * parseFloat($("#tipScale").text());
+                if(toMoney < 1){
+                  layer.alert('兑换结果不能小于 1 DG ！', { title: '出错了', icon: 5 }, function (index) {
+                    $("#tipRealMoney").text(0);
+                    $("#tipBrokeMoney").text(0);
+                    $("#tipRealType").text("");
+                    $("#fromMoney").val('');
+                    $("#fromMoney").focus();
+                    layer.close(index);
+                  });
+                  return false;
+                }
+                var brokePercent = parseFloat($("#tipBrokePercent").text());
+                var brokeMoney = FormatUtils.formatFloat8(toMoney * brokePercent / 100);
+                $("#tipRealMoney").text(toMoney - brokeMoney);
+                $("#tipBrokeMoney").text(brokeMoney);
+                $("#tipRealType").text("DG");
+              }else{
+                var tipMoney = parseFloat($("#tipMoney2").text());
+                if(m1 > tipMoney){
+                  layer.alert('兑换总额不能超过 '+tipMoney+' ！', { title: '出错了', icon: 5 }, function (index) {
+                    $("#tipRealMoney").text(0);
+                    $("#tipRealType").text("");
+                    $("#tipBrokeMoney").text(0);
+                    $("#fromMoney").val('');
+                    $("#fromMoney").focus();
+                    layer.close(index);
+                  });
+                  return false;
+                }
+                var toMoney = FormatUtils.formatFloat2(m1 / parseFloat($("#tipScale").text()));
+                if(toMoney < 0.01){
+                  layer.alert('兑换结果不能小于0.01 ！', { title: '出错了', icon: 5 }, function (index) {
+                    $("#tipRealMoney").text(0);
+                    $("#tipRealType").text("");
+                    $("#tipBrokeMoney").text(0);
+                    $("#fromMoney").val('');
+                    $("#fromMoney").focus();
+                    layer.close(index);
+                  });
+                  return false;
+                }
+                var brokePercent = parseFloat($("#tipBrokePercent").text());
+                var brokeMoney = FormatUtils.formatFloat2(toMoney * brokePercent / 100);
+                $("#tipRealMoney").text(toMoney - brokeMoney);
+                $("#tipBrokeMoney").text(brokeMoney);
+                $("#tipRealType").text(model.typeName);                
+              }
+            } else {
+              layer.alert('请输入整数或者小数！', { title: '出错了', icon: 5 }, function (index) {
+                $("#tipRealMoney").text(0);
+                $("#tipRealType").text("");
+                $("#fromMoney").val('');
+                $("#fromMoney").focus();
+                layer.close(index);
+              });
+            }
+          });
+
+          //监听提交
+          form.on('submit(demo1)', function (data) {
+            var json = data.field;
+            json.fromMoney = parseFloat(json.fromMoney);
+            json.toMoney = parseFloat($("#tipRealMoney").text());            
+            json.changeType = parseInt(json.changeType);
+            var typeName = model.typeName;
+            if(json.changeType=="1"){
+              json.fromTypeId = model.typeId;
+              json.toTypeId = modelDG.typeId;
+            }else{
+              json.fromTypeId = modelDG.typeId;
+              json.toTypeId = model.typeId;
+              typeName = modelDG.typeName;
+            }
+            layer.confirm('确定要兑换 ' + json.fromMoney + ' (' + typeName + ') 吗?', { icon: 3, title: '提示' }, function (index) {
+              var url = Config.WEB_SERVER_API + Config.URI.USER_MONEY_CHANGE_SAVE;
+              HttpUtils.httpPost(url, json, function (result, success) {
+                if (success) {
+                  layer.alert('恭喜您，DG兑换成功！', { title: '兑换成功' }, function (index) {
+                    window.parent.location.reload();
+                  });
+                } else {
+                  layer.alert(result.resultMsg, { title: '出错了', icon: 5 });
+                }
+              });
+              layer.close(index);
+            });
+            return false;
+          });
+
+          //表单初始赋值
+          // form.val('example', {"money":100});
+        });
+      });
+    });
+
+    var getUserMoneyInfo = function (id, callback) {
+      DataUtils.getUserMoneyInfo(id, function (data) {
+        if (!data) {
+          window.top.location.href = "index.html?t=" + new Date().getTime();
+          return;
+        }
+        model = data;
+        $("#tipMoney1").text(data.money);
+        $("#tipTypeName1").text(data.typeName);
+        $("#tipTypeName2").text(data.typeName);        
+        $("#tipScale").text(data.moneyType.dgScale);
+        $("#tipBrokePercent").text(data.moneyType.dgBrokePercent);        
+        $("#typeMode1").attr("title", data.typeName + "->DG");
+        $("#typeMode2").attr("title", "DG->" + data.typeName);
+        //获取系统币列表
+        DataUtils.getMoneyTypeList2(function(data){
+          if(data && data.length > 0){
+            modelDG = data[0];
+            DataUtils.getUserMoneyList2(function(userMoney){
+              if(userMoney){
+                modelDG = userMoney;
+              }else{
+                modelDG.money = 0;
+              }
+              $("#tipMoney2").text(modelDG.money);
+            });
+          }
+        });
+        
+        if (callback) {
+          callback();
+        }
+      });
+    };
+
+
+  </script>
+
+</body>
+
+</html>

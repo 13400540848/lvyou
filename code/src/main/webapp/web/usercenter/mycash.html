@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/statics/layui/css/layui.css" media="all">
+  <style>
+    .layui-table-cell{
+      height: 31px;
+      line-height: 31px;
+    }
+    .layui-tab-brief>.layui-tab-title .layui-this{
+      color: #3b85c8;
+    }
+    .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+      border-bottom: 2px solid #3b85c8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>代币提现</legend>
+  </fieldset>
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li class="layui-this">代币资产</li>
+      <li class="">订单记录</li>
+    </ul>
+    <div class="layui-tab-content" style="height: 100px;">
+      <div class="layui-tab-item layui-show">
+        <table class="layui-hide" id="dg1" lay-filter="dg1"></table>
+        <script type="text/html" id="bar1">
+          {{#  if(d.money > 0){ }}
+            <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="cash">提现</a>
+          {{#  } else { }}
+            <a class="layui-btn layui-btn-sm layui-btn-normal layui-btn-disabled">提现</a>
+          {{#  } }}  
+        </script>
+      </div>
+      <div class="layui-tab-item">
+        <table class="layui-hide" id="dg2"></table>
+        <script type="text/html" id="bar2">
+          {{#  if(d.checkStatus == 0){ }}
+            提交成功
+          {{#  } else if(d.checkStatus == 1){ }}
+            <span style="color:green;">提现成功</span>
+          {{#  } else if(d.checkStatus == 2){ }}
+          <span style="color:red;">提现失败</span>
+          {{#  } }}  
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <script src="/statics/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="../js/config.js"></script>
+  <script type="text/javascript" src="../js/utils.js"></script>
+  <script>
+    var _isCheck = false;
+    layui.use(['table', 'element', 'form'], function () {
+      var table = layui.table, element = layui.element, form = layui.form;
+
+      DataUtils.getUserIsCheck(function(isCheck){
+        _isCheck = isCheck;
+      });
+
+      DataUtils.getUserMoneyList(function (data) {
+        var data1 = [];
+        if (data && data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            if (item.moneyType) {
+              switch (item.moneyType.typeMode) {
+                case 0:
+                case 1:
+                  data1.push(item);
+                  break;
+              }
+            }
+          }
+        }
+
+        table.render({
+          elem: '#dg1',
+          cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+          cols: [[
+            { field: 'typeName', title: '币种' },
+            { field: 'money', title: '剩余数量' },
+            { fixed: 'right', title: '操作', toolbar: '#bar1', width: 150 }
+          ]],
+          even: true,
+          data: data1
+        });
+      });
+
+      
+
+      table.render({
+        elem: '#dg2',
+        url: Config.WEB_SERVER_API + Config.URI.USER_MONEY_CASH_LIST,
+        request: {
+          pageName: 'offset' //页码的参数名称，默认：page
+          , limitName: 'limit' //每页数据量的参数名，默认：limit
+        },
+        cellMinWidth: 60, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        cols: [[
+            { field: 'id', title: 'ID', hide: true }
+            , { fixed:'left', field: 'orderId', title: '订单号', width: 190 }
+            , { fixed:'left', field: 'checkStatusName', title: '状态', width: 87, toolbar:'#bar2' }
+            , { field: 'typeName', title: '币种', width: 80 }
+            , { field: 'money', title: '数量', width: 105 }
+            , { field: 'brokeMoney', title: '手续费', width: 100, templet: function (d) { return '<span style="color:green;">'+d.brokeMoney+'</span>'; } }
+				    , { field: 'realMoney', title: '到账数量', width: 100, templet: function (d) { return '<span style="color:red;">'+d.realMoney+'</span>'; } }
+            , { field: 'createTime', title: '提交时间', width: 160, templet: function (d) { return FormatUtils.parseTimestampToDateTime(d.createTime); } }
+            , { field: 'checkTime', title: '发币时间', width: 160, templet: function (d) { return d.checkTime ? FormatUtils.parseTimestampToDateTime(d.createTime) : ''; } }            
+        ]]
+        , page: true, loading: true,
+        response: {
+          statusCode: "200" //重新规定成功的状态码为 200，table 组件默认为 0
+        },
+        parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+          return {
+            "code": parseInt(res.resultCode), //解析接口状态
+            "msg": res.resultMsg, //解析提示文本
+            "count": res.total, //解析数据长度
+            "data": res.rows //解析数据列表
+          };
+        }
+      });
+
+      //自定义验证规则
+      form.verify({
+        pass: [/(.+){6,12}$/, '密码必须6到12位']
+      });
+
+      //监听行工具事件
+      table.on('tool(dg1)', function (obj) {
+        if(!_isCheck) {
+          layer.alert('您当前还未实名认证通过，请先到个人中心提交实名认证！', { title: '出错了', icon: 5 });
+          return false;
+        }        
+        var data = obj.data;
+        if (obj.event === 'cash') {
+          if (data.money == 0) {
+            layer.alert('剩余数量不足，无法提现！', { title: '出错了', icon: 5 });
+          } else {
+            var t = new Date().getTime();
+            layer.open({
+              type: 2
+              , title: '我要提现'
+              , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+              , area: ['500px', '490px']
+              , id: 'layerDemo' //防止重复弹出
+              , content: 'mycashadd.html?t=' + t + '&id=' + data.id
+              , shade: 0.2 //不显示遮罩
+              , yes: function () {
+                layer.closeAll();
+              }
+            });
+          }
+        }
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
