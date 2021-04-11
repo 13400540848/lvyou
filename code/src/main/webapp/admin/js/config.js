@@ -47,11 +47,19 @@
         "USER_ROLE_SAVE":"user/role/save",
 
         "SCHOOL_SEARCH":"school/search",
+        "SCHOOL_ALL":"school/all",
         "SCHOOL_DELETE":"school/",
         "SCHOOL_INFO":"school/",
         "SCHOOL_SAVE":"school/",
         "SCHOOL_IMPORT":"school/import",
         "SCHOOL_EXPORT":"school/export",
+        
+        "COLLEGE_SEARCH":"college/search",
+        "COLLEGE_DELETE":"college/",
+        "COLLEGE_INFO":"college/",
+        "COLLEGE_SAVE":"college/",
+        "COLLEGE_IMPORT":"college/import",
+        "COLLEGE_EXPORT":"college/export",
 
         "CHECK_TOKEN": "WebToken/CheckToken",
         "UPLOAD_IMAGE": "/v0.1/upload",

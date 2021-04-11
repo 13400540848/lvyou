@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import org.ume.school.modules.school.SchoolEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -35,14 +38,22 @@ public class CollegeEntity implements Serializable {
     private Integer status;
 
     @Column(name = "creator_id", columnDefinition = " int(11) DEFAULT 0 COMMENT '创建人'")
-    private Integer creatorId;
+    private Long creatorId;
 
     @Column(name = "create_time", columnDefinition = " timestamp NULL DEFAULT NULL COMMENT '创建时间'")
     private Date createTime;
+    
+    @Column(name = "update_id", columnDefinition = " int(11) DEFAULT 0 COMMENT '修改人'")
+    private Long updateId;
+
 
     @Column(name = "update_time", columnDefinition = " timestamp NULL DEFAULT NULL COMMENT '更新时间'")
     private Date updateTime;
 
     @Transient
     private boolean checked;
+        
+    @OneToOne
+    @JoinColumn(name="school_id", updatable = false, insertable = false)
+    private SchoolEntity school;
 }

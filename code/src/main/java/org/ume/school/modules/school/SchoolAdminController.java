@@ -1,30 +1,5 @@
 package org.ume.school.modules.school;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.bluesimon.wbf.*;
-import com.bluesimon.wbf.enums.NormalStatusEnum;
-import com.bluesimon.wbf.modules.file.UploadResp;
-import com.bluesimon.wbf.modules.user.enums.UserStatusEnum;
-import com.bluesimon.wbf.utils.AuthValidate;
-import com.bluesimon.wbf.utils.HttpServletUtil;
-import com.bluesimon.wbf.utils.StringUtil;
-import com.bluesimon.wbf.utils.Uploader;
-
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.slf4j.MDC;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,7 +7,34 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.bluesimon.wbf.AdminLogined;
+import com.bluesimon.wbf.IUser;
+import com.bluesimon.wbf.RequestPager;
+import com.bluesimon.wbf.Response;
+import com.bluesimon.wbf.ResponseErrorEnum;
+import com.bluesimon.wbf.enums.NormalStatusEnum;
+import com.bluesimon.wbf.utils.AuthValidate;
+import com.bluesimon.wbf.utils.HttpServletUtil;
+import com.bluesimon.wbf.utils.StringUtil;
+import com.bluesimon.wbf.utils.Uploader;
 
 /**
  * Created by Zz on 2021/3/20.
@@ -48,7 +50,7 @@ public class SchoolAdminController {
      * 查询
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public Response<List<SchoolEntity>> getAdminMenus(@RequestBody RequestPager<SchoolEntity> req, @AdminLogined IUser user) {
+    public Response<List<SchoolEntity>> getPage(@RequestBody RequestPager<SchoolEntity> req, @AdminLogined IUser user) {
         Response<List<SchoolEntity>> check = AuthValidate.checkAdmin(user);
         if (check != null) {
             return check;
@@ -58,6 +60,19 @@ public class SchoolAdminController {
         result.setTotal(projects.getTotalElements());
         result.setRows(projects.getContent());
         return result;
+    }
+    
+    /**
+     * 获取全部
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public Response<List<SchoolEntity>> getAll(@AdminLogined IUser user) {
+        Response<List<SchoolEntity>> check = AuthValidate.checkAdmin(user);
+        if (check != null) {
+            return check;
+        }
+        List<SchoolEntity> projects = schoolService.getAll();
+        return new Response<>(projects);
     }
     
     /**
@@ -118,6 +133,7 @@ public class SchoolAdminController {
         RequestPager<SchoolEntity> pager = JSONObject.parseObject(strBody, new TypeReference<RequestPager<SchoolEntity>>(){});
         Page<SchoolEntity> dataList = schoolService.findAll(pager);
         try{
+            @SuppressWarnings("resource")
             HSSFWorkbook wb = new HSSFWorkbook();
             HSSFSheet sheet = wb.createSheet();
 
@@ -171,15 +187,7 @@ public class SchoolAdminController {
      * @throws Exception
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public Response<String> importData(HttpServletRequest request) throws Exception {
-//        MultipartHttpServletRequest mureq = (MultipartHttpServletRequest)request;
-//        Map<String, MultipartFile> files = mureq.getFileMap();
-//        if(files==null || files.size()<=0){
-//            return new Response<>(Response.NORMAL, "文件为空"); 
-//        }
-//        Map.Entry<String, MultipartFile> f = files.entrySet().iterator().next(); 
-//        MultipartFile file = f.getValue();
-        
+    public Response<String> importData(HttpServletRequest request) throws Exception {        
         Uploader up = new Uploader(request);
         up.setSavePath(HttpServletUtil.TempDir);
         String[] fileType = {".xls", ".xlsx"};

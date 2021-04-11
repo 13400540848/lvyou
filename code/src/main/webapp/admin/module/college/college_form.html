@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../css/sapar.css" />
+    <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../js/sapar.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery.dialog.js"></script>    
+    <script type="text/javascript" src="../../js/config.js"></script>
+    <script type="text/javascript" src="../../js/utils.js"></script>
+    <script type="text/javascript" src="js/college_form.js"></script>
+    <title>学院添加/修改</title>
+</head>
+<body style="overflow:hidden">
+    <div id="saper-container">
+        <div id="saper-bd">
+            <div class="subfiled-content">
+                <div class="tab-container" data-trigger="click">
+                    <div class="tab-content" id="tbForm">
+                            <div class="kv-item clearfix">
+                                <label>学院名称：</label>
+                                <div class="kv-item-content">
+                                    <input field="name" required="required" maxlength="50" type="text" placeholder="学院名称" /><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>学院编码：</label>
+                                <div class="kv-item-content">
+                                    <input field="code" required="required" maxlength="50" type="text" placeholder="学院编码" /><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>所属学校：</label>
+                                <div class="kv-item-content">
+                                    <select id="tbSchoolId" field="schoolId" required="required"></select><span
+                                        class="impInfo">*</span>
+                                </div>
+                            </div>
+                            <div class="kv-item clearfix">
+                                <label>学院状态：</label>
+                                <div class="kv-item-content">
+                                    <select field="status" required="required" dict="NORMAL_STATUS" defaultValue="0">
+	                            </select><span class="impInfo">*</span>
+                                </div>
+                            </div>
+                      </div>
+                </div>
+                <div class="foot-botton">
+                    <a id="btnSave" href="javascript:;" class="foot-btn">保存</a>
+                    <a id="btnClose" href="javascript:;" class="foot-btn foot-btn-gray">取消</a>
+                </div>
+            </div>
+        </div>
+        <div id="saper-ft"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

@@ -26,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ume.school.modules.college.CollegeService;
 import org.ume.school.modules.utils.PageUtils;
 
 import com.bluesimon.wbf.RequestPager;
@@ -43,39 +44,19 @@ public class SchoolService {
 
     @Resource
     private SchoolRepository schoolRepository;
-
-    @SuppressWarnings("unchecked")
-    public SchoolEntity getByCode(final String code) {
-        @SuppressWarnings("rawtypes")
-        Specification specification = new Specification<SchoolEntity>() {
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-                predicates.add(cb.equal(root.get("code"), code));
-                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
-            }
-        };
-        return schoolRepository.findOne(specification);
-    }
+    @Resource
+    private CollegeService collegeService;
     
-    @SuppressWarnings("unchecked")
-    public SchoolEntity getByCodeNotId(final String code, final Long id) {
-        @SuppressWarnings("rawtypes")
-        Specification specification = new Specification<SchoolEntity>() {
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-                predicates.add(cb.equal(root.get("code"), code));
-                predicates.add(cb.notEqual(root.get("id"), id));
-                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
-            }
-        };
-        return schoolRepository.findOne(specification);
-    }
     
     @Transactional
     public List<SchoolEntity> getAll() {
         return schoolRepository.findAll();
+    }
+    
+    @Transactional
+    public SchoolEntity getByName(String schoolName) {
+        List<SchoolEntity> list = schoolRepository.findByName(schoolName);
+        return !StringUtil.isEmpty(list) ? list.get(0) : null;
     }
     
     /**
@@ -116,8 +97,8 @@ public class SchoolService {
 
     @Transactional
     public Response<SchoolEntity> add(SchoolEntity entity) {
-        SchoolEntity menu = this.getByCode(entity.getCode());
-        if(menu!=null){
+        int count = schoolRepository.countByCode(entity.getCode());
+        if(count > 0){
             return new Response<>(Response.NORMAL, "编号已存在");
         }
         entity.setCreateTime(new Date());
@@ -132,8 +113,8 @@ public class SchoolService {
         if(menu==null){
             return new Response<>(Response.NORMAL, "学校不存在");
         }
-        menu = this.getByCodeNotId(entity.getCode(), entity.getId());
-        if(menu!=null){
+        int count = schoolRepository.countByCodeAndIdNot(entity.getCode(), entity.getId());
+        if(count > 0){
             return new Response<>(Response.NORMAL, "编号已存在");
         }
         entity.setUpdateTime(new Date());
@@ -147,10 +128,10 @@ public class SchoolService {
         if(menu==null){
             return new Response<>(Response.NORMAL, "学校不存在");
         }
-//        List<SchoolMenuEntity> rms = schoolMenuService.getBySchoolId(id);
-//        if(!StringUtil.isEmpty(rms)){
-//            return new Response<>(Response.NORMAL, "请先删除学校关联的菜单！");
-//        }
+        int count = collegeService.countBySchoolId(id);
+        if(count > 0){
+            return new Response<>(Response.NORMAL, "请先删除学校关联的学院！");
+        }
         schoolRepository.delete(id);
         return new Response<SchoolEntity>();
     }

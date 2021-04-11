@@ -111,7 +111,7 @@ var IndexManage = {
 			 console.log("加载菜单：", nav.children);
 			 $("#id_nav_name").text(nav.name);
 			 $("#id_menu_list").empty();
-			 if(nav.children){
+			 if(nav.children && nav.children.length>0){
 				 $.each(nav.children, function(i, item){
 					 var html = '<li class="'+item.icon+(i==0?' current':'')+'">'+
 	                 '<div class="nav-header">'+
@@ -123,6 +123,8 @@ var IndexManage = {
 	             '</li>';
 					 $("#id_menu_list").append(html);
 				 });
+				 
+				 $("#id_menu_list").find(".current").click();
 			 }
 		 }
 };

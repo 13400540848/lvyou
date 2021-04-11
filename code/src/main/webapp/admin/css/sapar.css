@@ -823,6 +823,15 @@ input[type=color]:focus {
 .table .table-operate a.check, .table .table-buttons a.check {
   background: url("../images/bookico.png") no-repeat left 10px;
 }
+.table .table-operate a.import , .table .table-buttons a.import{
+  background: url("../images/importico.png") no-repeat left 10px;
+}
+.table .table-operate a.export , .table .table-buttons a.export{
+  background: url("../images/exportico.png") no-repeat left 10px;
+}
+.table .table-operate a.download , .table .table-buttons a.download{
+  background: url("../images/downloadico.png") no-repeat left 10px;
+}
 .table .table-buttons {
   padding-left: 15px;
   height: 37px;

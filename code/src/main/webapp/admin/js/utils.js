@@ -696,6 +696,16 @@ var DataUtils = {
             }   
         });
     },    
+    /** 获取学校列表 */
+    "getSchoolList": function (callback) {
+        var url = Config.WEB_SERVER_API + Config.URI.SCHOOL_ALL;
+        HttpUtils.httpGet(url, {}, function (data, success) {
+            if(success){
+                if (callback)
+                callback(data ? data.rows : {});
+            }
+        });
+    },    
     /** 获取币种列表 */
     "getMenuList": function (typeMode, callback) {
         var url = Config.WEB_SERVER_API + Config.URI.MONEY_TYPE_SEARCH;
