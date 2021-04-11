@@ -12,13 +12,13 @@ public class DataSourceConfig {
     @Value("${jdbc.driverClass}")
     String driverClass = "com.mysql.jdbc.Driver";
     @Value("${jdbc.url}")
-    //String url = "jdbc:mysql://127.0.0.1:3306/lvyou?useUnicode=true&amp;characterEncoding=utf-8";
-    String url = "jdbc:mysql://192.168.0.182:12306/lvyou?useUnicode=true&amp;characterEncoding=utf-8";
+    String url = "jdbc:mysql://127.0.0.1:3306/lvyou?useUnicode=true&amp;characterEncoding=utf-8";
+//    String url = "jdbc:mysql://192.168.0.182:12306/lvyou?useUnicode=true&amp;characterEncoding=utf-8";
     @Value("${jdbc.user}")
     String user = "root";
     @Value("${jdbc.password}")
-    //String password = "123456";
-    String password = "gszh8899";
+    String password = "123456";
+//    String password = "gszh8899";
     @Value("${jdbc.acquireIncrement}")
     int acquireIncrement = 10;
     @Value("${jdbc.acquireRetryAttempts}")

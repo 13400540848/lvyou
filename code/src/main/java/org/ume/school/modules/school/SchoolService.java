@@ -1,9 +1,26 @@
 package org.ume.school.modules.school;
 
-import com.bluesimon.wbf.RequestPager;
-import com.bluesimon.wbf.Response;
-import com.bluesimon.wbf.utils.StringUtil;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,14 +28,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ume.school.modules.utils.PageUtils;
 
-import javax.annotation.Resource;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.bluesimon.wbf.RequestPager;
+import com.bluesimon.wbf.Response;
+import com.bluesimon.wbf.enums.NormalStatusEnum;
+import com.bluesimon.wbf.utils.FileUtil;
+import com.bluesimon.wbf.utils.StringUtil;
+import com.bluesimon.wbf.utils.Uploader;
 
 /**
  * Created by Zz on 2021/3/21.
@@ -138,5 +153,101 @@ public class SchoolService {
 //        }
         schoolRepository.delete(id);
         return new Response<SchoolEntity>();
+    }
+    
+    @SuppressWarnings("resource")
+    @Transactional
+    public Response<String> importFile(Uploader up) {
+        String fileName = up.getFileName();
+        OutputStream output=null;
+        Response<String> result = new Response<>(Response.OK, "导入成功！");
+        try {
+            String filePath = up.getPhysicalPath(up.getUrl());
+            InputStream inputStream = new FileInputStream(filePath);
+            //Excel的文档对象
+            Workbook workbook = null;
+            String xls = ".xls";
+            String xlsx = ".xlsx";
+            if(fileName.toLowerCase().endsWith(xls)){
+                workbook = new HSSFWorkbook(inputStream);
+            }else if(fileName.toLowerCase().endsWith(xlsx)){
+                workbook = new XSSFWorkbook(inputStream);
+            }else{
+                return new Response<>(Response.NORMAL, "请导入Excel文件！");
+            }
+            String err = "";
+            Sheet sheet = workbook.getSheetAt(0);
+            int rowNum = sheet.getLastRowNum();
+            if(rowNum>0){
+                List<SchoolEntity> schoolDoList = new ArrayList<>();
+                boolean check = true;
+                Row rowData;
+                Cell cellData;
+                rowData = sheet.getRow(0);
+                //获取总列数
+                int columnNum=rowData.getPhysicalNumberOfCells();
+                List<String> headList =  new ArrayList<>();
+                for(int i=0;i<columnNum;i++){
+                    headList.add(FileUtil.GetCellValue(rowData.getCell(i)));
+                }
+                for (int i = 1; i <= rowNum; i++) {
+                    SchoolEntity schoolDo = new SchoolEntity();
+                    rowData = sheet.getRow(i);
+                    if(rowData==null){
+                        continue;
+                    }
+                    for(int j=0;j<columnNum;j++){
+                        cellData = rowData.getCell(j);
+                        String cellValue = FileUtil.GetCellValue(cellData);
+                        if(headList.get(j).contains("名称")){
+                            schoolDo.setName(cellValue);
+                        }else if(headList.get(j).contains("编号")){
+                            schoolDo.setCode(cellValue);
+                        }else if(headList.get(j).contains("状态")){
+                            if(cellValue.contains("正常")){
+                                schoolDo.setStatus(NormalStatusEnum.ENABLED.getValue());
+                            }
+                            else{
+                                schoolDo.setStatus(NormalStatusEnum.DISABLE.getValue());
+                            }
+                        }
+                    }
+                    check = true;
+                    if(StringUtil.isEmpty(schoolDo.getName())){
+                        err += "第"+i+" 行名称为空！";
+                        check = false;
+                        break;
+                    }
+                    if(StringUtil.isEmpty(schoolDo.getCode())){
+                        err += "第"+i+" 行编号为空！";
+                        check = false;
+                        break;
+                    }
+                    if(check){
+                        schoolDoList.add(schoolDo);
+                    }
+                }
+                if(err.isEmpty() && !schoolDoList.isEmpty()){
+                    schoolRepository.save(schoolDoList);
+                }else{
+                    result = new Response<>(Response.NORMAL, err);
+                }
+            }else{
+                result = new Response<>(Response.NORMAL, "导入的Excel内容为空！");
+            }
+        }catch (IOException e){
+            result = new Response<>("9909", "导入异常：" + e.getMessage());
+        }catch (Exception e){
+            result = new Response<>("9909", "导入异常：" + e.getMessage());
+        }finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 }

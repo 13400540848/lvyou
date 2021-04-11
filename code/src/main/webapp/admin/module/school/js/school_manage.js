@@ -55,14 +55,17 @@ var SchoolManage = {
 			var uploadInst = upload.render({
 				elem: '#btnImport', //绑定元素
 				accept: 'file',
-				exts: 'xls|txt',
+				exts: 'xls|txt|xlsx',
+				multiple: true,
 				url: Config.WEB_SERVER_API + Config.URI.SCHOOL_IMPORT, //导入接口
 				done: function (res) {
 					console.log(res);
-					if(res.state == 'SUCCESS'){
-						UIUtils.tip("导入成功！");
+					if(res.resultCode == '0'){
+						UIUtils.tip("导入成功！", function(){
+							SchoolManage.search();
+						});
 					}else{
-						UIUtils.error(res.state);
+						UIUtils.error(res.resultMsg);
 					}
 				},
 				error: function (xhr) {

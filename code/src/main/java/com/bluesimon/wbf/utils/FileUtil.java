@@ -1,16 +1,27 @@
 package com.bluesimon.wbf.utils;
 
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * @author zz
  * @date 2021/4/3
  */
 public class FileUtil {
+    static String[] ExcelAllowFile = {".xls", ".xlsx"}; 
     public static void downloadFile(String fileName, String fieldUrl, HttpServletResponse response, boolean canDel) throws Exception {
         File file = new File(fieldUrl);
         downloadFile(fileName, file, response);
@@ -77,5 +88,71 @@ public class FileUtil {
                 }
             }
         }
+    }
+
+    public static boolean checkExcelFile(String fileName) {
+        Iterator<String> type = Arrays.asList(ExcelAllowFile).iterator();
+        while (type.hasNext()) {
+            String ext = type.next();
+            if (fileName.toLowerCase().endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean checkFileType(String[] allowFiles, String fileName) {
+        Iterator<String> type = Arrays.asList(allowFiles).iterator();
+        while (type.hasNext()) {
+            String ext = type.next();
+            if (fileName.toLowerCase().endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * 按不同单元格格式获得数据
+     * @param cell
+     * @return
+     */
+    public static String GetCellValue(Cell cell){
+        String temp ;
+        if (cell == null||"".equals(cell)) {
+            temp = null;
+        } else {
+            CellType cellType = cell.getCellTypeEnum();
+            switch (cellType) {
+                case STRING:
+                    temp = cell.getStringCellValue().trim();
+                    temp = StringUtil.isEmpty(temp) ? null : temp;
+                    break;
+                case BOOLEAN:
+                    temp = String.valueOf(cell.getBooleanCellValue());
+                    break;
+                case FORMULA:
+                    temp = String.valueOf(cell.getCellFormula().trim());
+                    break;
+                case NUMERIC:
+                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date date = HSSFDateUtil.getJavaDate(cell.getNumericCellValue());
+                        temp = sdf.format(date);
+                    } else {
+                        temp = new DecimalFormat("#.######").format(cell.getNumericCellValue());
+                    }
+                    break;
+                case BLANK:
+                    temp = null;
+                    break;
+                case ERROR:
+                    temp = "ERROR";
+                    break;
+                default:
+                    temp = cell.toString().trim();
+                    break;
+            }
+        }
+        return temp;
     }
 }

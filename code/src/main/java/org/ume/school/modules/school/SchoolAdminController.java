@@ -11,16 +11,20 @@ import com.bluesimon.wbf.utils.AuthValidate;
 import com.bluesimon.wbf.utils.HttpServletUtil;
 import com.bluesimon.wbf.utils.StringUtil;
 import com.bluesimon.wbf.utils.Uploader;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.MDC;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +32,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Zz on 2021/3/20.
@@ -147,14 +152,14 @@ public class SchoolAdminController {
                 result.setRows(fileName + "." + ext);
             } catch (IOException e) {
                 String msg = "导出IO异常 - " + e.getMessage();
-                result = new Response<>(msg);
+                result = new Response<>(Response.OK, msg);
             } finally {
                 if(out !=null)
                     out.close();
             }
         } catch (Exception e){
             String msg = "导出表格异常 - " + e.getMessage();
-            result = new Response<>(msg);
+            result = new Response<>(Response.OK, msg);
         }
         return result;
     }
@@ -166,19 +171,21 @@ public class SchoolAdminController {
      * @throws Exception
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
-    public UploadResp importData(HttpServletRequest request) throws Exception {
-
+    public Response<String> importData(HttpServletRequest request) throws Exception {
+//        MultipartHttpServletRequest mureq = (MultipartHttpServletRequest)request;
+//        Map<String, MultipartFile> files = mureq.getFileMap();
+//        if(files==null || files.size()<=0){
+//            return new Response<>(Response.NORMAL, "文件为空"); 
+//        }
+//        Map.Entry<String, MultipartFile> f = files.entrySet().iterator().next(); 
+//        MultipartFile file = f.getValue();
+        
         Uploader up = new Uploader(request);
         up.setSavePath(HttpServletUtil.TempDir);
-        String[] fileType = {".xls"};
+        String[] fileType = {".xls", ".xlsx"};
         up.setAllowFiles(fileType);
         up.setMaxSize(10000); //单位KB
         up.upload();
-        return new UploadResp(up.getFileName(),
-                up.getOriginalName(),
-                up.getSize(),
-                up.getState(),
-                up.getType(),
-                up.getUrl());
+        return schoolService.importFile(up);
     }
 }

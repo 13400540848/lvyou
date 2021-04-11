@@ -226,7 +226,7 @@ public class Uploader {
      * @param path
      * @return
      */
-    private String getPhysicalPath(String path) {
+    public String getPhysicalPath(String path) {
 //		String servletPath = this.request.getServletPath();
         String realPath = this.request.getSession().getServletContext()
                 .getRealPath(path);

@@ -33,7 +33,7 @@ public class DownloadController {
             }
         } catch (Exception e){
             String msg = "下载文件异常：" + e.getMessage();
-            return new Response<>(msg);
+            return new Response<>(Response.OK, msg);
         }
     }
 }
